@@ -1,0 +1,26 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+
+public class m extends JFrame{
+	public m() {
+		this.setSize(600,350);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		
+		JPanel AddDoctor = new JPanel();
+		tabbedPane.addTab("Add new Doctor", null, AddDoctor, null);
+		
+		JPanel AddNurse = new JPanel();
+		tabbedPane.addTab("Add new Nurs", null, AddNurse, null);
+		
+		JPanel PatientsVisitedDoctors = new JPanel();
+		tabbedPane.addTab("Patients visited a doctor", null, PatientsVisitedDoctors, null);
+		
+		JPanel PatientWaitngTime = new JPanel();
+		tabbedPane.addTab("Patient's waiting time", null, PatientWaitngTime, null);
+	}
+}

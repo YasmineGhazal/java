@@ -1,0 +1,39 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.Border;
+import javax.swing.JTabbedPane;
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+
+public class Doctor extends JFrame{
+	private JPasswordField ConfNew;
+	private JPasswordField New;
+	private JPasswordField Old;
+	Border grayBorder = BorderFactory.createLineBorder(Color.gray, 1);
+	Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);  
+	Connection c = null;
+	java.sql.Statement stmt ;
+	java.sql.Statement stmtUpdate ;
+	Doctor (String ID) {
+		this.setVisible(true);;
+		this.setSize(423,231);
+		this.setDefaultCloseOperation(3);
+		this.setTitle("Nurse");
+		this.setLocationRelativeTo(null);
+		}
+}

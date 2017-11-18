@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.ComponentAddDialog">
+		<item value="335" key="x"/>
+		<item value="729" key="width"/>
+		<item value="188" key="y"/>
+		<item value="416" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.CategoryEditDialog">
+		<item value="393" key="x"/>
+		<item value="613" key="width"/>
+		<item value="194" key="y"/>
+		<item value="403" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.property.order.ReorderDialog">
+		<item value="413" key="x"/>
+		<item value="573" key="width"/>
+		<item value="217" key="y"/>
+		<item value="358" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelDialog">
+		<item value="268" key="x"/>
+		<item value="863" key="width"/>
+		<item value="106" key="y"/>
+		<item value="579" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.ImportArchiveDialog">
+		<item value="393" key="x"/>
+		<item value="613" key="width"/>
+		<item value="181" key="y"/>
+		<item value="429" key="height"/>
+		<list key="HISTORY_JAR_LIST">
+			<item value="/home/yasmine/Downloads/jdatepicker-1.3.4.jar"/>
+		</list>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.actions.assistant.LayoutAssistantWindow">
+		<item value="667" key="x"/>
+		<item value="350" key="y"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.PaletteManagerDialog">
+		<item value="393" key="x"/>
+		<item value="613" key="width"/>
+		<item value="134" key="y"/>
+		<item value="523" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.CategoryAddDialog">
+		<item value="393" key="x"/>
+		<item value="613" key="width"/>
+		<item value="177" key="y"/>
+		<item value="437" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyDialog">
+		<item value="437" key="x"/>
+		<item value="587" key="width"/>
+		<item value="122" key="y"/>
+		<item value="354" key="height"/>
+	</section>
+</section>

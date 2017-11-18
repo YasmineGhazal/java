@@ -1,0 +1,14 @@
+package uml;
+
+import javax.swing.JFrame;
+
+public class Nurse extends JFrame {
+	public Nurse() {
+		this.setVisible(true);;
+		this.setSize(423,231);
+		this.setDefaultCloseOperation(3);
+		this.setTitle("Nurse");
+		this.setLocationRelativeTo(null);
+	}
+
+}

@@ -1,0 +1,220 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+
+public class Manager extends JFrame{
+	private JPasswordField tfPassword;
+	private JTextField tfID;
+	private JTextField tfName;
+	private JTextField tfAddress;
+	private JTextField tfPhone;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	private JPasswordField tfConfirm;
+	Manager(){
+		this.setSize(500,500);
+		
+		JButton btnAddAsDoctor = new JButton("add as a Doctor");
+		btnAddAsDoctor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		
+		JButton btnAddAsNurs = new JButton("add as a Nurs");
+		btnAddAsNurs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		JLabel lblId = new JLabel("ID");
+		
+		JLabel lblPassword = new JLabel("password");
+		
+		JLabel lblName = new JLabel("Name");
+		
+		tfPassword = new JPasswordField();
+		tfPassword.setColumns(10);
+		
+		tfID = new JTextField();
+		tfID.setColumns(10);
+		
+		tfName = new JTextField();
+		tfName.setColumns(10);
+		
+		JLabel lblGender = new JLabel("gender");
+		
+		rdbtnMale = new JRadioButton("Male");
+		
+	    rdbtnFemale = new JRadioButton("Female");
+		ButtonGroup rg=new ButtonGroup();
+		rg.add(rdbtnFemale);
+		rg.add(rdbtnMale);
+		
+		JLabel lblAddress = new JLabel("Address");
+		
+		tfAddress = new JTextField();
+		tfAddress.setColumns(10);
+		
+		JLabel lblPhone = new JLabel("phone");
+		
+		tfPhone = new JTextField();
+		tfPhone.setColumns(10);
+		
+		JLabel lblConfirm = new JLabel("confirm password");
+		
+		tfConfirm = new JPasswordField();
+		tfConfirm.setColumns(10);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(lblGender, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+												.addComponent(lblPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(lblId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+												.addComponent(lblName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+											.addGap(18))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblPhone, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(lblConfirm)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(tfConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tfName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(rdbtnMale)
+												.addComponent(tfAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(tfPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addGap(33)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnAddAsNurs, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+												.addComponent(btnAddAsDoctor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(151)
+									.addComponent(rdbtnFemale)))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblAddress)
+							.addGap(220)))
+					.addGap(16))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblId)
+						.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPassword)
+						.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblConfirm)
+						.addComponent(tfConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblName)
+								.addComponent(tfName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblGender)
+									.addComponent(rdbtnMale))
+								.addComponent(rdbtnFemale))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblAddress)
+								.addComponent(tfAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(tfPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPhone)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(52)
+							.addComponent(btnAddAsDoctor)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAddAsNurs)))
+					.addContainerGap(299, Short.MAX_VALUE))
+		);
+		getContentPane().setLayout(groupLayout);
+	}
+	
+	private boolean checkData() {
+        Border border = BorderFactory.createLineBorder(Color.RED, 5);
+		//tfPassword tfID tfName tfAddress tfPhone rdbtnMale rdbtnFemale
+		if(tfID.getText().trim().equals("")) {
+			tfID.setBorder(border);
+			JOptionPane.showMessageDialog(tfID, "Please enter ID");
+			return false;
+		}
+		if(tfPassword.getText().trim().equals("")) {
+			tfPassword.setBorder(border);
+			JOptionPane.showMessageDialog(tfPassword, "Please enter password");
+			return false;
+		}
+		if(tfConfirm.getText().trim().equals("")) {
+			tfConfirm.setBorder(border);
+			JOptionPane.showMessageDialog(tfConfirm, "Please enter confirm passsword");
+			return false;
+		}
+		if(tfPassword.getText().equals(tfConfirm.getText())) {
+			tfConfirm.setBorder(border);
+			JOptionPane.showMessageDialog(tfConfirm, "passwords are not the same");
+			return false;
+		}
+		if(tfName.getText().trim().equals("")) {
+			tfName.setBorder(border);
+			JOptionPane.showMessageDialog(tfName, "Please enter Name");
+			return false;
+		}
+		if(tfAddress.getText().trim().equals("")) {
+			tfAddress.setBorder(border);
+			JOptionPane.showMessageDialog(tfAddress, "Please enter Address");
+			return false;
+		}
+		if(tfPhone.getText().trim().equals("")) {
+			tfName.setBorder(border);
+			JOptionPane.showMessageDialog(tfPhone, "Please enter Phone");
+			return false;
+		}
+		if(!rdbtnMale.isSelected() && !rdbtnFemale.isSelected()) {
+			JOptionPane.showMessageDialog(tfPhone, "Please choose gender ");
+			return false;
+		}
+		return true;
+	}
+	
+}

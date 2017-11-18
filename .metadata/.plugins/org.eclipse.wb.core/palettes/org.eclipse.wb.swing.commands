@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<addComponent
+		id="custom_1509139758408"
+		name="Calendar"
+		visible="true"
+		class="java.util.Calendar"
+		category="org.eclipse.wb.swing.actions"/>
+	<removeEntry
+		id="custom_1509139758408"/>
+	<addCategory
+		id="custom_1509140412766"
+		name="DatePicker"
+		description=""
+		visible="true"
+		open="true"/>
+	<visibleElement
+		id="custom_1509140412766"
+		visible="false"/>
+	<editCategory
+		id="custom_1509140412766"
+		name="DatePicker"
+		description=""
+		visible="true"
+		open="true"/>
+	<addComponent
+		id="org.jdatepicker.AbstractDateModel_1509140506223"
+		name="AbstractDateModel"
+		description="Custom component: org.jdatepicker.AbstractDateModel"
+		visible="true"
+		class="org.jdatepicker.AbstractDateModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.DateModel_1509140506223"
+		name="DateModel"
+		description="Custom component: org.jdatepicker.DateModel"
+		visible="true"
+		class="org.jdatepicker.DateModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.graphics.JNextIcon_1509140506223"
+		name="JNextIcon"
+		description="Custom component: org.jdatepicker.graphics.JNextIcon"
+		visible="true"
+		class="org.jdatepicker.graphics.JNextIcon"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.graphics.JPreviousIcon_1509140506223"
+		name="JPreviousIcon"
+		description="Custom component: org.jdatepicker.graphics.JPreviousIcon"
+		visible="true"
+		class="org.jdatepicker.graphics.JPreviousIcon"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.DateComponentFormatter_1509140506223"
+		name="DateComponentFormatter"
+		description="Custom component: org.jdatepicker.impl.DateComponentFormatter"
+		visible="true"
+		class="org.jdatepicker.impl.DateComponentFormatter"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl_1509140506223"
+		name="JDatePanelImpl"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl$1_1509140506223"
+		name="1"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl$1"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl$1"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl$InternalCalendarModel_1509140506223"
+		name="InternalCalendarModel"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl$InternalCalendarModel"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl$InternalCalendarModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl$InternalController_1509140506223"
+		name="InternalController"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl$InternalController"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl$InternalController"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl$InternalTableCellRenderer_1509140506223"
+		name="InternalTableCellRenderer"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl$InternalTableCellRenderer"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl$InternalTableCellRenderer"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePanelImpl$InternalView_1509140506223"
+		name="InternalView"
+		description="Custom component: org.jdatepicker.impl.JDatePanelImpl$InternalView"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePanelImpl$InternalView"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePickerImpl_1509140506223"
+		name="JDatePickerImpl"
+		description="Custom component: org.jdatepicker.impl.JDatePickerImpl"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePickerImpl"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePickerImpl$1_1509140506223"
+		name="1"
+		description="Custom component: org.jdatepicker.impl.JDatePickerImpl$1"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePickerImpl$1"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.JDatePickerImpl$InternalEventHandler_1509140506223"
+		name="InternalEventHandler"
+		description="Custom component: org.jdatepicker.impl.JDatePickerImpl$InternalEventHandler"
+		visible="true"
+		class="org.jdatepicker.impl.JDatePickerImpl$InternalEventHandler"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.SqlDateModel_1509140506223"
+		name="SqlDateModel"
+		description="Custom component: org.jdatepicker.impl.SqlDateModel"
+		visible="true"
+		class="org.jdatepicker.impl.SqlDateModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.UtilCalendarModel_1509140506223"
+		name="UtilCalendarModel"
+		description="Custom component: org.jdatepicker.impl.UtilCalendarModel"
+		visible="true"
+		class="org.jdatepicker.impl.UtilCalendarModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.impl.UtilDateModel_1509140506223"
+		name="UtilDateModel"
+		description="Custom component: org.jdatepicker.impl.UtilDateModel"
+		visible="true"
+		class="org.jdatepicker.impl.UtilDateModel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.JDateComponent_1509140506223"
+		name="JDateComponent"
+		description="Custom component: org.jdatepicker.JDateComponent"
+		visible="true"
+		class="org.jdatepicker.JDateComponent"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.JDateComponentFactory_1509140506223"
+		name="JDateComponentFactory"
+		description="Custom component: org.jdatepicker.JDateComponentFactory"
+		visible="true"
+		class="org.jdatepicker.JDateComponentFactory"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.JDatePanel_1509140506223"
+		name="JDatePanel"
+		description="Custom component: org.jdatepicker.JDatePanel"
+		visible="true"
+		class="org.jdatepicker.JDatePanel"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.JDatePicker_1509140506223"
+		name="JDatePicker"
+		description="Custom component: org.jdatepicker.JDatePicker"
+		visible="true"
+		class="org.jdatepicker.JDatePicker"
+		category="custom_1509140412766"/>
+	<addComponent
+		id="org.jdatepicker.util.JDatePickerUtil_1509140506223"
+		name="JDatePickerUtil"
+		description="Custom component: org.jdatepicker.util.JDatePickerUtil"
+		visible="true"
+		class="org.jdatepicker.util.JDatePickerUtil"
+		category="custom_1509140412766"/>
+	<removeCategory
+		id="custom_1509140412766"/>
+</commands>

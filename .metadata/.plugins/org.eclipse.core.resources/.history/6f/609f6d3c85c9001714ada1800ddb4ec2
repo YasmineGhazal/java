@@ -1,0 +1,44 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
+
+public class Nurse extends JFrame {
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	public Nurse() {
+		this.setVisible(true);;
+		this.setSize(423,231);
+		this.setDefaultCloseOperation(3);
+		this.setTitle("Nurse");
+		this.setLocationRelativeTo(null);
+		
+		JPanel patient = new JPanel();
+		tabbedPane.addTab("add/updat patient", null, patient, null);
+		GroupLayout gl_patient = new GroupLayout(patient);
+		gl_patient.setHorizontalGroup(
+			gl_patient.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 408, Short.MAX_VALUE)
+		);
+		gl_patient.setVerticalGroup(
+			gl_patient.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 174, Short.MAX_VALUE)
+		);
+		patient.setLayout(gl_patient);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 413, GroupLayout.PREFERRED_SIZE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+		);
+		
+		JPanel changePassword = new JPanel();
+		tabbedPane.addTab("change password", null, changePassword, null);
+		getContentPane().setLayout(groupLayout);
+	}
+}

@@ -1,0 +1,36 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+
+public class Manager extends JFrame{
+	Manager(){
+		this.setSize(500,500);
+		
+		JButton btnAddAsDoctor = new JButton("add as a Doctor");
+		
+		JButton btnAddAsNurs = new JButton("add as a Nurs");
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(334, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAddAsDoctor, Alignment.TRAILING)
+						.addComponent(btnAddAsNurs, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(42)
+					.addComponent(btnAddAsDoctor)
+					.addGap(39)
+					.addComponent(btnAddAsNurs)
+					.addContainerGap(369, Short.MAX_VALUE))
+		);
+		getContentPane().setLayout(groupLayout);
+	}
+}

@@ -1,0 +1,420 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerDateModel;
+import javax.swing.border.Border;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+
+public class Manager extends JFrame{
+	private JPasswordField tfPassword;
+	private JTextField tfID;
+	private JTextField tfName;
+	private JTextField tfAddress;
+	private JTextField tfPhone;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	private JPasswordField tfConfirm;
+	private ButtonGroup rg;
+	private JComboBox<String> comboBoxDoctorName;
+	DefaultTableModel model = new DefaultTableModel();
+    Border grayBorder = BorderFactory.createLineBorder(Color.gray, 1);
+    Connection c = null;
+	java.sql.Statement stmt ;
+	String DoctorID="" ;
+	private JSpinner spinnerFrom;
+	private JSpinner spinnerTo;
+	private JTable table_1;
+	SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+
+	Manager(){
+		this.setSize(550,500);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(3);
+		this.setLocationRelativeTo(null);
+		this.setTitle("Manager");
+		JButton btnAddAsDoctor = new JButton("add as a Doctor");
+		btnAddAsDoctor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(checkData(1)) {
+					insertToTable("doctor");		
+				}
+			}
+		});
+		
+		JButton btnAddAsNurs = new JButton("add as a Nurs");
+		btnAddAsNurs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(checkData(2)) {
+					insertToTable("nurs");
+				}				
+			}
+		});
+		JButton btnClearAll = new JButton("clear all informations");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clearAdd();
+			}
+		});
+		JButton btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String fromDate=formater.format(spinnerFrom.getValue());
+					String ToDate=formater.format(spinnerTo.getValue());
+					Class.forName("org.sqlite.JDBC");
+			        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+			        stmt = c.createStatement();
+			        ResultSet rs=stmt.executeQuery("SELECT PatientID, Name, Date, enter FROM Visit,Patient where ID=PatientID and DoctorID= '"+DoctorID+
+			        "' and Date between '"+fromDate+"' AND '"+ToDate+"'"+";");
+			        System.out.println(ToDate);
+			        while(rs.next()) {
+			 			model.addRow(new String[]{rs.getString("PatientID"),rs.getString("Name"),rs.getString("Date"),rs.getString("enter")});
+			        }
+		    	 }catch(Exception e1) {
+			         System.err.println( e1.getClass().getName() + ": " + e1.getMessage() );
+	  		         System.exit(0);
+		    	 }
+			}
+		});
+		
+		
+		JLabel lblId = new JLabel("ID");
+		JLabel lblPassword = new JLabel("password");
+		
+		JLabel lblName = new JLabel("Name");
+		
+		tfPassword = new JPasswordField();
+		tfPassword.setColumns(10);
+		
+		tfID = new JTextField();
+		tfID.setColumns(10);
+		
+		tfName = new JTextField();
+		tfName.setColumns(10);
+		
+		JLabel lblGender = new JLabel("gender");
+		
+		rdbtnMale = new JRadioButton("Male");
+		
+	    rdbtnFemale = new JRadioButton("Female");
+		rg=new ButtonGroup();
+		rg.add(rdbtnFemale);
+		rg.add(rdbtnMale);
+		
+		JLabel lblAddress = new JLabel("Address");
+		
+		tfAddress = new JTextField();
+		tfAddress.setColumns(10);
+		
+		JLabel lblPhone = new JLabel("phone");
+		
+		tfPhone = new JTextField();
+		tfPhone.setColumns(10);
+		
+		JLabel lblConfirm = new JLabel("confirm password");
+		
+		tfConfirm = new JPasswordField();
+		tfConfirm.setColumns(10);
+		grayAll();
+		
+		JLabel lblNumberOfPatient = new JLabel("patients have visited  Dr. ");
+		
+    	comboBoxDoctorName = new JComboBox();
+		
+		JLabel lblFrom = new JLabel("from");
+					
+		JScrollPane scrollPane = new JScrollPane();
+		spinnerFrom = new JSpinner();
+		//SimpleDateFormat modelDF = new SimpleDateFormat("yyyy-MM-dd");
+		spinnerFrom.setModel(new SpinnerDateModel());
+		spinnerFrom.setEditor(new JSpinner.DateEditor(spinnerFrom, formater.toPattern()));
+		
+		spinnerTo = new JSpinner();
+	//	SimpleDateFormat modelDT = new SimpleDateFormat("yyyy-MM-dd");
+		spinnerTo.setModel(new SpinnerDateModel());
+		spinnerTo.setEditor(new JSpinner.DateEditor(spinnerTo, formater.toPattern()));
+		
+		JLabel lblTo = new JLabel("to");
+				
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblGender, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+										.addComponent(lblPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+										.addComponent(lblId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+										.addComponent(lblName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+									.addGap(18))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblPhone, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblConfirm)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(tfConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(rdbtnMale)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(rdbtnFemale))
+										.addComponent(tfAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tfPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tfName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(33)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnClearAll, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+										.addComponent(btnAddAsNurs, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+										.addComponent(btnAddAsDoctor, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblAddress)
+							.addGap(220)))
+					.addGap(16))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(82)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(12)
+							.addComponent(lblFrom)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(spinnerFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(30)
+							.addComponent(lblTo, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(spinnerTo, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNumberOfPatient)
+							.addGap(1)
+							.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(btnSearch, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+							.addGap(16))))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblId)
+						.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPassword)
+						.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblConfirm)
+						.addComponent(tfConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblName)
+						.addComponent(tfName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblGender)
+								.addComponent(rdbtnMale)
+								.addComponent(rdbtnFemale))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblAddress)
+								.addComponent(tfAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+									.addComponent(tfPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnClearAll))
+								.addComponent(lblPhone)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAddAsDoctor)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAddAsNurs)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNumberOfPatient)
+						.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnSearch))
+					.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFrom)
+						.addComponent(spinnerFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(spinnerTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		scrollPane.setViewportView(table_1);
+		
+		table_1 = new JTable(model);
+		scrollPane.setViewportView(table_1);
+		getContentPane().setLayout(groupLayout);
+    	try {
+			Class.forName("org.sqlite.JDBC");
+	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+	        stmt = c.createStatement();
+	        ResultSet rs=stmt.executeQuery("SELECT Name, ID FROM doctor;");
+	        while(rs.next()) {
+	        	comboBoxDoctorName.addItem(rs.getString("Name"));
+	        }
+    	 }catch(Exception e) {}
+    	 DoctorID = comboBoxDoctorName.getSelectedItem().toString();
+    	 model.addColumn("ID");
+    	 model.addColumn("Name");
+ 		 model.addColumn("Date of Visit");
+ 	 	 model.addColumn("Time of enter");
+ 	}
+	
+	private boolean checkData(int t) {
+        Border errorborder = BorderFactory.createLineBorder(Color.RED, 1);
+        grayAll();        
+        String ID=tfID.getText().trim();
+        String pass1=tfPassword.getText().trim();
+        String pass2=tfConfirm.getText().trim();
+        String name=tfName.getText().trim();
+        String address=tfAddress.getText().trim();
+        String phone=tfPhone.getText().trim();
+                
+		if(ID.equals("")) {
+			tfID.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter ID");
+			return false;
+		}
+		else if(!ID.matches("^"+t+"[0-9]{2,}")) {
+			tfID.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "ID must \n . start with 1 for Doctors and 2 for Nurses \n . contains only 3 or more digits ");
+			return false;
+		}
+		if(pass1.equals("")) {
+			tfPassword.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter password");
+			return false;
+		}
+		else if(!pass1.matches("[a-zA-Z_0-9]{5,}")) {
+			tfPassword.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "password must be contains 6 letters or numbers");
+			return false;
+		}
+		if(pass2.equals("")) {
+			tfConfirm.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter confirm passsword");
+			return false;
+		}
+		if(!pass1.equals(pass2)) {
+			tfConfirm.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "passwords are not the same");
+			return false;
+		}
+		if(name.equals("")) {
+			tfName.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter Name");
+			return false;
+		}
+		if(address.trim().equals("")) {
+			tfAddress.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter Address");
+			return false;
+		}
+		if(phone.equals("")) {
+			tfPhone.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Please enter Phone");
+			return false;
+		}
+		else if(!phone.matches("[0-9]{10}")) {
+			tfPhone.setBorder(errorborder);
+			JOptionPane.showMessageDialog(null, "Phone number must contain 10 digits");
+			return false;
+		}
+		if(!rdbtnMale.isSelected() && !rdbtnFemale.isSelected()) {
+			JOptionPane.showMessageDialog(null, "Please choose gender ");
+			return false;
+		}
+		return true;
+	}
+	void clearAdd() {
+		tfID.setText("");
+		tfPassword.setText("");
+		tfConfirm.setText("");
+		tfName.setText("");
+		tfAddress.setText("");
+		tfPhone.setText("");
+		rg.clearSelection();
+		grayAll();
+	}
+
+	void grayAll() {
+		tfID.setBorder(grayBorder);
+		tfPassword.setBorder(grayBorder);
+		tfConfirm.setBorder(grayBorder);
+		tfAddress.setBorder(grayBorder);
+		tfPhone.setBorder(grayBorder);
+		tfName.setBorder(grayBorder);
+		
+	}
+	void insertToTable(String tabelName) {
+		try {
+            Connection c = null;
+            java.sql.Statement stmt ;
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+            stmt = c.createStatement();
+            String gender="";
+            if(rdbtnMale.isSelected())
+            	gender="Male";
+            if(rdbtnFemale.isSelected())
+            	gender="Female";
+            String ID=tfID.getText().trim();
+            String password=tfPassword.getText().trim();
+            String name=tfName.getText().trim();
+            String address=tfAddress.getText().trim();
+            String phone=tfPhone.getText().trim();
+            stmt.executeUpdate("insert into "+tabelName+" values( '"
+		             +ID+"', '"+password+"' , '"+gender+"' , '"
+		             +phone+"' ,' "+address+"' ,'"+name+"');"); 
+            c.close();
+            JOptionPane.showMessageDialog(null, "Done");
+    		clearAdd();
+    		
+              } catch ( Exception e1 ) {
+      			tfID.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+    			JOptionPane.showMessageDialog(null, "this ID is already exists");
+                }	
+	}
+}

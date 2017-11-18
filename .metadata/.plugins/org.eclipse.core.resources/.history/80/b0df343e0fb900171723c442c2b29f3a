@@ -1,0 +1,9 @@
+package uml;
+
+import javax.swing.JFrame;
+
+public class Manager extends JFrame{
+	Manager(){
+		this.setSize(500,500);
+	}
+}

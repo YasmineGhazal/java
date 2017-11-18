@@ -1,0 +1,12 @@
+package uml;
+
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+
+public class Manager extends JFrame{
+	Manager(){
+		BorderLayout borderLayout = (BorderLayout) getContentPane().getLayout();
+		borderLayout.setHgap(5);
+		this.setSize(500,500);
+	}
+}

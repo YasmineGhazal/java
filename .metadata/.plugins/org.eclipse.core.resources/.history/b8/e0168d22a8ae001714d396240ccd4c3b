@@ -1,0 +1,12 @@
+package uml;
+
+import javax.swing.JFrame;
+
+public class auth extends JFrame {
+	auth(){
+		this.isVisible();
+		this.setSize(300,300);
+		this.setDefaultCloseOperation(3);
+	}
+
+}

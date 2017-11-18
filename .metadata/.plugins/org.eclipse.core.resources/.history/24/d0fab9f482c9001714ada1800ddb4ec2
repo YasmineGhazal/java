@@ -1,0 +1,7 @@
+package uml;
+
+import javax.swing.JFrame;
+
+public class Nurse extends JFrame {
+
+}

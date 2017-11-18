@@ -1,0 +1,57 @@
+package uml;
+
+import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+
+public class Manager extends JFrame{
+	Manager(){
+		this.setSize(500,500);
+		
+		JButton btnAddAsDoctor = new JButton("add as a Doctor");
+		
+		JButton btnAddAsNurs = new JButton("add as a Nurs");
+		
+		JLabel lblId = new JLabel("ID");
+		
+		JLabel lblPassword = new JLabel("password");
+		
+		JLabel lblEmail = new JLabel("email");
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblPassword)
+						.addComponent(lblId, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+						.addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+					.addGap(250)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnAddAsDoctor, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+						.addComponent(btnAddAsNurs, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(36)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblId)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblPassword)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblEmail))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAddAsDoctor)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAddAsNurs)))
+					.addContainerGap(395, Short.MAX_VALUE))
+		);
+		getContentPane().setLayout(groupLayout);
+	}
+}

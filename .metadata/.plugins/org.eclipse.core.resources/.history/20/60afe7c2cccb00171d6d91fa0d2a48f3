@@ -1,0 +1,47 @@
+package uml;
+
+import java.awt.Color;
+import java.sql.Connection;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.border.Border;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
+
+public class D extends JFrame{
+	Border grayBorder = BorderFactory.createLineBorder(Color.gray, 1);
+	Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);  
+	Connection c = null;
+	java.sql.Statement stmt ;
+	java.sql.Statement stmtUpdate ;
+	D (String ID) {
+		this.setVisible(true);;
+		this.setSize(475,331);
+		this.setDefaultCloseOperation(3);
+		this.setTitle("Doctor");
+		this.setLocationRelativeTo(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 484, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(tabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+		);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("enter patient", null, panel, null);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("change password", null, panel_1, null);
+		getContentPane().setLayout(groupLayout);
+		}
+}

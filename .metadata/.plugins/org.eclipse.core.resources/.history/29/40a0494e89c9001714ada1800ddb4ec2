@@ -1,0 +1,198 @@
+package uml;
+
+import javax.swing.JFrame;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Nurse extends JFrame {
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JPasswordField Old;
+	private JPasswordField New;
+	private JPasswordField ConfNew;
+    Border grayBorder = BorderFactory.createLineBorder(Color.gray, 1);
+    Border errorborder = BorderFactory.createLineBorder(Color.RED, 1);  
+    Connection c = null;
+	java.sql.Statement stmt ;
+	public Nurse() {
+		this.setVisible(true);;
+		this.setSize(423,231);
+		this.setDefaultCloseOperation(3);
+		this.setTitle("Nurse");
+		this.setLocationRelativeTo(null);
+		
+		JPanel patient = new JPanel();
+		tabbedPane.addTab("add/updat patient", null, patient, null);
+		GroupLayout gl_patient = new GroupLayout(patient);
+		gl_patient.setHorizontalGroup(
+			gl_patient.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 408, Short.MAX_VALUE)
+		);
+		gl_patient.setVerticalGroup(
+			gl_patient.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 174, Short.MAX_VALUE)
+		);
+		patient.setLayout(gl_patient);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+		);
+		
+		JPanel changePassword = new JPanel();
+		tabbedPane.addTab("change password", null, changePassword, null);
+		
+		JLabel lblOld = new JLabel("old password");
+		
+		Old = new JPasswordField();
+		
+		JLabel lblNew = new JLabel("new password");
+		
+		New = new JPasswordField();
+		
+		JLabel lblconfNew = new JLabel("confirm new password");
+		
+		ConfNew = new JPasswordField();
+		
+		JButton btnSave = new JButton("save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(passwordsCheck()){
+					try {
+						Class.forName("org.sqlite.JDBC");
+				        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+				        stmt = c.createStatement();
+				        DoctorID=comboBoxDoctorName.getSelectedItem().toString();
+				        ResultSet rs=stmt.executeQuery("SELECT ID FROM Nurse where ID='"+ID+"' and password ='"+Old.getText()+"';");
+				        if (rs.next()) {
+				        	//TO DO
+				        }
+				        else {
+				        	Old.setBorder(errorBorder);
+				        	JOptionPane.showMessageDialog(null, "Old password is not correct ..", "Failure", JOptionPane.ERROR_MESSAGE);
+				         }
+			    	 }catch(Exception e1) {
+				         System.err.println( e1.getClass().getName() + ": " + e1.getMessage() );
+		  		         System.exit(0);
+			    	 }
+							
+				}
+			}
+		});
+		
+		JButton btnCancle = new JButton("cancle");
+		btnCancle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Old.setText("");
+				New.setText("");
+				ConfNew.setText("");
+				Old.setBorder(grayBorder);
+				New.setBorder(grayBorder);
+				ConfNew.setBorder(grayBorder);
+				
+			}
+		});
+		GroupLayout gl_changePassword = new GroupLayout(changePassword);
+		gl_changePassword.setHorizontalGroup(
+			gl_changePassword.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_changePassword.createSequentialGroup()
+					.addGap(25)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblOld)
+						.addComponent(lblNew)
+						.addComponent(lblconfNew))
+					.addGap(22)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(ConfNew)
+						.addComponent(New)
+						.addComponent(Old, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+					.addContainerGap(101, Short.MAX_VALUE))
+				.addGroup(gl_changePassword.createSequentialGroup()
+					.addContainerGap(246, Short.MAX_VALUE)
+					.addComponent(btnCancle)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_changePassword.setVerticalGroup(
+			gl_changePassword.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_changePassword.createSequentialGroup()
+					.addGap(27)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addComponent(Old, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(New, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addComponent(lblOld)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNew)))
+					.addGap(18)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblconfNew)
+						.addComponent(ConfNew, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addGap(24)
+							.addComponent(btnSave)
+							.addContainerGap(43, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_changePassword.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCancle)
+							.addGap(21))))
+		);
+		changePassword.setLayout(gl_changePassword);
+		getContentPane().setLayout(groupLayout);
+	}
+	
+	boolean passwordsCheck(){
+		String pass1=New.getText();
+		String pass2=ConfNew.getText();
+		String errorMsg="";
+		if(pass1.equals("")) {
+	 			New.setBorder(errorborder);
+	 			errorMsg+="Please enter password \n";
+	 		}
+	 		else if(!pass1.matches("[a-zA-Z_0-9]{5,}")) {
+	 			New.setBorder(errorborder);
+	 			errorMsg+="password must be contains 6 letters or numbers \n";
+	 		}
+	 		if(pass2.equals("")) {
+	 			ConfNew.setBorder(errorborder);
+	 			errorMsg+="Please enter confirm passsword \n";
+	 		}
+	 		if(!pass1.equals(pass2)) {
+	 			ConfNew.setBorder(errorborder);
+	 			errorMsg+="passwords are not the same \n";
+	 		}
+	        if(!errorMsg.equals("")) {
+	        	JOptionPane.showMessageDialog(null, errorMsg, "Failure", JOptionPane.ERROR_MESSAGE);
+	        	return false;
+	        }
+	        New.setBorder(grayBorder);
+	        ConfNew.setBorder(grayBorder);
+	        
+			return true;
+		
+	}
+}
