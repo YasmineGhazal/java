@@ -27,8 +27,8 @@ public class auth extends JFrame {
 		BorderLayout borderLayout = (BorderLayout) getContentPane().getLayout();
 		borderLayout.setVgap(10);
 		borderLayout.setHgap(10);
-		this.setVisible(true);;
 		this.setSize(423,131);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(3);
 		this.setTitle("Log in");
 		this.setLocationRelativeTo(null);
@@ -82,11 +82,11 @@ public class auth extends JFrame {
 						 ResultSet rs=null;
 						 String tableName="";
 						 if(ID.startsWith("0")) 
-							 tableName="manager";
+							 tableName="Manager";
 						 else if(ID.startsWith("1"))
-							 tableName="doctor";
+							 tableName="Doctor";
 						 else if(ID.startsWith("2"))
-							 tableName="nurse";
+							 tableName="Nurse";
 						 try {
 						 rs = stmt.executeQuery("SELECT * FROM "+tableName+" where ID = '"+ID+"' AND password = '"+password+"'");
 						 }catch(org.sqlite.SQLiteException ee) {
@@ -94,8 +94,9 @@ public class auth extends JFrame {
 									    "wrong ID or password ",
 									    "Inane error",
 									    JOptionPane.ERROR_MESSAGE);
+							 JOptionPane.showMessageDialog(null, ee.getClass().getName() + ": " + ee.getMessage() );
+
 			            		c.close();
-			            		System.exit(0);
 						 }
 						 
 						 if(rs.next()) {
@@ -103,13 +104,13 @@ public class auth extends JFrame {
 							 c.close();
 							 JFrame nextFrame;
 							 JOptionPane.showMessageDialog(null,"Welcome "+tableName,"",JOptionPane.INFORMATION_MESSAGE);
-							 if(tableName.equals("manager")) {
+							 if(tableName.equals("Manager")) {
 								  nextFrame= new Manager();
 							 }
-							 else if(tableName.equals("nurse")) {
+							 else if(tableName.equals("Nurse")) {
 								  nextFrame= new Nurse(ID);
 							 }
-							 else if(tableName.equals("doctor")) {
+							 else if(tableName.equals("Doctor")) {
 								  nextFrame= new Doctor(ID);
 							 }
 						 }
@@ -129,7 +130,8 @@ public class auth extends JFrame {
 			}
 				  					
 		});
-		
+		pack();
+		setVisible(true);	
 	}
 
 }

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -71,6 +72,7 @@ public class Manager extends JFrame{
 	private JTable tableWaiting;
 	public Manager() {
 		this.setSize(675,350);
+		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(3);
 		this.setLocationRelativeTo(null);
@@ -224,7 +226,7 @@ public class Manager extends JFrame{
 		AddDoctor.setLayout(gl_AddDoctor);
 		
 		JPanel AddNurse = new JPanel();
-		tabbedPane.addTab("Add new Nurs", null, AddNurse, null);
+		tabbedPane.addTab("Add new Nurse", null, AddNurse, null);
 		
 		JLabel lblGenderN = new JLabel("gender");
 		
@@ -403,15 +405,17 @@ public class Manager extends JFrame{
 			        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
 			        stmt = c.createStatement();
 			        String DoctorName=comboBoxDoctorName.getSelectedItem().toString();
-			        ResultSet rs=stmt.executeQuery("SELECT PatientID, patient.Name, Date, enter FROM Visit,Patient,doctor where PatientID=patient.ID and DoctorID=Doctor.ID and doctor.name='"+
-			        		DoctorName+ "' and Date between '"+fromDate+"' and '"+ToDate+"';");
-			        int NoPatient=0;
+			        ResultSet rs=stmt.executeQuery("SELECT patientID, Patient.name, date, enter FROM Visit,Patient,Doctor where patientID=patient.ID and doctorID=Doctor.ID and Doctor.name='"+
+			        		DoctorName+ "' and date between '"+fromDate+"' and '"+ToDate+"';");
+			        ArrayList<String> patients=new ArrayList<>();
 			        while(rs.next()) {
-			 			model.addRow(new String[]{rs.getString("PatientID"),rs.getString("Name"),rs.getString("Date"),rs.getString("enter")});
-			 			NoPatient++;
+			        	String name=rs.getString("name");
+			 			model.addRow(new String[]{rs.getString("patientID"),name,rs.getString("date"),rs.getString("enter")});
+			 			if(!patients.contains(name))
+			 				patients.add(name);
 			        }
-			    	tfNoP.setText(NoPatient+"");				
-					
+			    	tfNoP.setText(patients.size()+"");				
+					c.close();
 		    	 }catch(Exception e1) {
 		    		 JOptionPane.showMessageDialog(null,"there is not any doctors yet");
 			    	 }
@@ -515,7 +519,7 @@ public class Manager extends JFrame{
 			        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
 			        stmt = c.createStatement();
 			        DoctorID=comboBoxDoctorName.getSelectedItem().toString();
-			        ResultSet rs=stmt.executeQuery("SELECT PatientID, Name, enter ,arrival  FROM Visit,Patient where PatientID=ID and Date = '"+waitingDate+"';");
+			        ResultSet rs=stmt.executeQuery("SELECT patientID, name, enter ,arrival  FROM Visit,Patient where patientID=ID and date = '"+waitingDate+"';");
 			        while(rs.next()) {
 			        	count++;
 			        	String e=rs.getString("enter");
@@ -528,11 +532,14 @@ public class Manager extends JFrame{
 			        	int eminutes = Integer.valueOf(esplit[1]);
 			            int diffMinutes = (eminutes - aminutes) +60*(ehours-ahours);
 			            sum+=diffMinutes;
-			 			modelWaiting.addRow(new String[]{rs.getString("PatientID"),rs.getString("Name"),diffMinutes+""});
+			 			modelWaiting.addRow(new String[]{rs.getString("patientID"),rs.getString("name"),diffMinutes+""});
 			        }
+			        c.close();
 			      }catch(Exception e1){     }
 				if(count>0)
 					lblAvg.setText(sum/count+"");
+				else 
+					lblAvg.setText("00");
 			}
 		});
 		
@@ -596,9 +603,9 @@ public class Manager extends JFrame{
 			Class.forName("org.sqlite.JDBC");
 	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
 	        stmt = c.createStatement();
-	        ResultSet rs=stmt.executeQuery("SELECT Name, ID FROM doctor;");
+	        ResultSet rs=stmt.executeQuery("SELECT name, ID FROM Doctor;");
 	        while(rs.next()) {
-	        	comboBoxDoctorName.addItem(rs.getString("Name"));
+	        	comboBoxDoctorName.addItem(rs.getString("name"));
 	        }
     	 }catch(Exception e) {}
     	 model.addColumn("ID");
@@ -625,38 +632,38 @@ public class Manager extends JFrame{
 	         phone=tfPhoneD.getText().trim();
 	         if(pass1.equals("")) {
 	 			passwordD.setBorder(errorborder);
-	 			errorMsg+="Please enter password \n";
+	 			errorMsg+=" * Please enter password \n";
 	 		}
 	 		else if(!pass1.matches("[a-zA-Z_0-9]{6}")) {
 	 			passwordD.setBorder(errorborder);
-	 			errorMsg+="password must be contains 6 letters or numbers \n";
+	 			errorMsg+=" * Password must contain 6 letters or numbers \n";
 	 		}
 	 		if(pass2.equals("")) {
 	 			passwordConfirmD.setBorder(errorborder);
-	 			errorMsg+="Please enter confirm passsword \n";
+	 			errorMsg+=" * Please enter confirm passsword \n";
 	 		}
 	 		if(!pass1.equals(pass2)) {
 	 			passwordConfirmD.setBorder(errorborder);
-	 			errorMsg+="passwords are not the same \n";
+	 			errorMsg+=" * Passwords are not the same \n";
 	 		}
 	 		if(name.equals("")) {
 	 			tfNameD.setBorder(errorborder);
-	 			errorMsg+="Please enter Name \n";
+	 			errorMsg+=" * Please enter Name \n";
 	 		}
 	 		if(address.trim().equals("")) {
 	 			tfAddressD.setBorder(errorborder);
-	 			errorMsg+="Please enter Address \n";
+	 			errorMsg+=" * Please enter Address \n";
 	 		}
 	 		if(phone.equals("")) {
 	 			tfPhoneD.setBorder(errorborder);
-	 			errorMsg+="Please enter Phone \n";
+	 			errorMsg+=" * Please enter Phone \n";
 	 		}
 	 		else if(!phone.matches("[0-9]{10}")) {
 	 			tfPhoneD.setBorder(errorborder);
-	 			errorMsg+="Phone number must contain 10 digits \n";
+	 			errorMsg+=" * Phone number must contain 10 digits \n";
 	 		}
 	 		if(!rbMaleD.isSelected() && !rbFemaleD.isSelected()) {
-	 			errorMsg+="Please choose gender \n";
+	 			errorMsg+=" * Please choose gender \n";
 	 		}
 	         
          }
@@ -668,38 +675,38 @@ public class Manager extends JFrame{
              phone=tfPhoneN.getText().trim();
              if(pass1.equals("")) {
  	 			passwordN.setBorder(errorborder);
- 	 			errorMsg+="Please enter password \n";
+ 	 			errorMsg+=" * Please enter password \n";
  	 		}
  	 		else if(!pass1.matches("[a-zA-Z_0-9]{5,}")) {
  	 			passwordN.setBorder(errorborder);
- 	 			errorMsg+="password must be contains 6 letters or numbers \n";
+ 	 			errorMsg+=" * Password must contain 6 letters or numbers \n";
  	 		}
  	 		if(pass2.equals("")) {
  	 			passwordConfirmN.setBorder(errorborder);
- 	 			errorMsg+="Please enter confirm passsword \n";
+ 	 			errorMsg+=" * Please enter confirm passsword \n";
  	 		}
  	 		if(!pass1.equals(pass2)) {
  	 			passwordConfirmN.setBorder(errorborder);
- 	 			errorMsg+="passwords are not the same \n";
+ 	 			errorMsg+=" * Passwords are not the same \n";
  	 		}
  	 		if(name.equals("")) {
  	 			tfNameN.setBorder(errorborder);
- 	 			errorMsg+="Please enter Name \n";
+ 	 			errorMsg+=" * Please enter Name \n";
  	 		}
  	 		if(address.trim().equals("")) {
  	 			tfAddressN.setBorder(errorborder);
- 	 			errorMsg+="Please enter Address \n";
+ 	 			errorMsg+=" * Please enter Address \n";
  	 		}
  	 		if(phone.equals("")) {
  	 			tfPhoneN.setBorder(errorborder);
- 	 			errorMsg+="Please enter Phone \n";
+ 	 			errorMsg+=" * Please enter Phone \n";
  	 		}
  	 		else if(!phone.matches("[0-9]{10}")) {
  	 			tfPhoneN.setBorder(errorborder);
- 	 			errorMsg+="Phone number must contain 10 digits \n";
+ 	 			errorMsg+=" * Phone number must contain 10 digits \n";
  	 		}
  	 		if(!rbMaleN.isSelected() && !rbFemaleN.isSelected()) {
- 	 			errorMsg+="Please choose gender \n";
+ 	 			errorMsg+=" * Please choose gender \n";
  	 		}
         }
         if(!errorMsg.equals("")) {
@@ -760,11 +767,11 @@ public class Manager extends JFrame{
                 	gender="Female";
             	 String ID = 1+""+randomNum;
 				 ResultSet rs=null;
-            	 rs = stmt.executeQuery("SELECT * FROM doctor where ID = '"+ID+"';");
+            	 rs = stmt.executeQuery("SELECT * FROM Doctor where ID = '"+ID+"';");
 				 while(rs.next()) {
 					 randomNum =  rn.nextInt(99988) + 10;
 					 ID = 1+""+randomNum;
-	            	 rs = stmt.executeQuery("SELECT * FROM doctor where ID = '"+ID+"';");
+	            	 rs = stmt.executeQuery("SELECT * FROM Doctor where ID = '"+ID+"';");
 				 }
             	 String password=passwordD.getText().trim();
                  String name=tfNameD.getText().trim();
@@ -774,8 +781,9 @@ public class Manager extends JFrame{
      		             +ID+"', '"+password+"' , '"+gender+"' , '"
      		             +phone+"' ,' "+address+"' ,'"+name+"');"); 
                  c.close();
-                 JOptionPane.showMessageDialog(null, "Successfully added \n ID : "+ID+"\n password : "+password);
+                 JOptionPane.showMessageDialog(null, "Successfully added \n ID : "+ID);
          		 clearAdd(t);
+         		comboBoxDoctorName.addItem(name);
                    }else {
 
                    	if(rbMaleN.isSelected())
@@ -784,11 +792,11 @@ public class Manager extends JFrame{
                        	gender="Female";
                    	 String ID = 2+""+randomNum;
        				 ResultSet rs=null;
-                   	 rs = stmt.executeQuery("SELECT * FROM nurse where ID = '"+ID+"';");
+                   	 rs = stmt.executeQuery("SELECT * FROM Nurse where ID = '"+ID+"';");
        				 while(rs.next()) {
        					 randomNum =  rn.nextInt(99988) + 10;
        					 ID = 2+""+randomNum;
-       	            	 rs = stmt.executeQuery("SELECT * FROM nurse where ID = '"+ID+"';");
+       	            	 rs = stmt.executeQuery("SELECT * FROM Nurse where ID = '"+ID+"';");
        				 }
                    	    String password=passwordN.getText().trim();
                         String name=tfNameN.getText().trim();
@@ -798,7 +806,7 @@ public class Manager extends JFrame{
             		             +ID+"', '"+password+"' , '"+gender+"' , '"
             		             +phone+"' ,' "+address+"' ,'"+name+"');"); 
                         c.close();
-                        JOptionPane.showMessageDialog(null, "Successfully added \n ID : "+ID+"\n password : "+password);
+                        JOptionPane.showMessageDialog(null, "Successfully added \n ID : "+ID);
                 		 clearAdd(t);
                    }
             	
