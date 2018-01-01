@@ -16,51 +16,111 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class auth extends JFrame {
+	public static void main(String[] args) {
+		new auth();
+	}
+
 	JButton ok=new JButton("Login");
-	private JTextField tfID;
-	private JPasswordField tfPassword;
 
 	auth(){
+		getContentPane().setBackground(new Color(128, 185, 215));
 		getContentPane().setEnabled(false);
-		BorderLayout borderLayout = (BorderLayout) getContentPane().getLayout();
-		borderLayout.setVgap(10);
-		borderLayout.setHgap(10);
-		this.setSize(423,131);
+		this.setSize(547,320);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(3);
 		this.setTitle("Log in");
 		this.setLocationRelativeTo(null);
-		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(2, 2, 5, 5));
+				
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(128, 185, 215));
+		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		
+		ImageIcon img = new ImageIcon(auth.class.getResource("/images/HIS.png"));
+		this.setIconImage(img.getImage());
+		
+		JButton btnLogin = new JButton("login");
+		btnLogin.setBackground(SystemColor.inactiveCaption);
+		btnLogin.setFont(new Font("Palatino Linotype", Font.BOLD, 24));
+		btnLogin.setHorizontalAlignment(SwingConstants.LEFT);
+		panel.add(btnLogin);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setIcon(new ImageIcon(auth.class.getResource("/images/login.jpg")));
 		
 		JLabel lblID = new JLabel("ID : ");
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblID);
+		lblID.setFont(new Font("Palatino Linotype", Font.PLAIN, 20));
 		
-		tfID = new JTextField();
+		RoundJTextField tfID = new RoundJTextField(20);
+		tfID.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		tfID.setBackground(SystemColor.inactiveCaptionBorder);
 		tfID.setToolTipText("enter your ID");
-		panel_1.add(tfID);
 		tfID.setColumns(10);
 		
-		JLabel lblPassword = new JLabel("password :");
+		JLabel lblPassword = new JLabel("Password :");
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblPassword);
+		lblPassword.setFont(new Font("Palatino Linotype", Font.PLAIN, 20));
 		
-		tfPassword = new JPasswordField();
+		RoundJPasswordField tfPassword = new RoundJPasswordField(20);
+		tfPassword.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		tfPassword.setBackground(SystemColor.inactiveCaptionBorder);
 		tfPassword.setToolTipText("Enter your password");
-		panel_1.add(tfPassword);
 		tfPassword.setColumns(10);
-				
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		
-		JButton btnLogin = new JButton("login");
-		btnLogin.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(btnLogin);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(38)
+									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(tfID, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
+								.addComponent(tfPassword, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+					.addGap(34)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(51)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(tfID, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+									.addGap(21)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addGap(28)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 306, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		getContentPane().setLayout(groupLayout);
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,5 +193,4 @@ public class auth extends JFrame {
 		pack();
 		setVisible(true);	
 	}
-
 }

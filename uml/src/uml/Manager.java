@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.RootPaneContainer;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
@@ -36,6 +38,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
+import javax.swing.JSpinner.DateEditor;
 
 public class Manager extends JFrame{
 	private JPasswordField passwordD;
@@ -67,54 +70,71 @@ public class Manager extends JFrame{
 	SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd");
 	SimpleDateFormat timeFormate = new SimpleDateFormat("HH:mm:ss");
 	private JSpinner spinnerFrom;
+	private JSpinner spinnerFrom_1;
 	private JSpinner spinnerTo;
+	private JSpinner spinnerTo_1;
 	private JScrollPane scrollPane_1;
 	private JTable tableWaiting;
 	public Manager() {
-		this.setSize(675,350);
+		this.setSize(910,483);
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(3);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Manager");
+		ImageIcon img = new ImageIcon(auth.class.getResource("/images/HIS.png"));
+		this.setIconImage(img.getImage());
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel AddDoctor = new JPanel();
-		tabbedPane.addTab("Add new Doctor", null, AddDoctor, null);
+		AddDoctor.setBackground(new Color(167, 200, 183));
+		tabbedPane.addTab("Add new doctor", null, AddDoctor, null);
 		
-		JLabel lblGenderD = new JLabel("gender");
+		JLabel lblGenderD = new JLabel("Gender");
+		lblGenderD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		JLabel lblPasswordD = new JLabel("password");
+		JLabel lblPasswordD = new JLabel("Password");
+		lblPasswordD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JLabel lblNameD = new JLabel("Name");
+		lblNameD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		JLabel lblPhoneD = new JLabel("phone");
+		JLabel lblPhoneD = new JLabel("Phone");
+		lblPhoneD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		passwordD = new JPasswordField();
+		passwordD = new  RoundJPasswordField(50);
+		passwordD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		passwordD.setColumns(10);
 		passwordD.setBorder(grayBorder);
 		
-		JLabel lblConfD = new JLabel("confirm password");
+		JLabel lblConfD = new JLabel("Confirm password");
+		lblConfD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		passwordConfirmD = new JPasswordField();
+		passwordConfirmD = new  RoundJPasswordField(50);
+		passwordConfirmD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		passwordConfirmD.setColumns(10);
 		passwordConfirmD.setBorder(grayBorder);
 		
 		
-		tfAddressD = new JTextField();
+		tfAddressD = new RoundJTextField(50);
+		tfAddressD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfAddressD.setColumns(10);
 		tfAddressD.setBorder(grayBorder);
 		
-		tfPhoneD = new JTextField();
+		tfPhoneD = new RoundJTextField(50);
+		tfPhoneD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfPhoneD.setColumns(10);
 		tfPhoneD.setBorder(grayBorder);
 		
-		tfNameD = new JTextField();
+		tfNameD = new RoundJTextField(50);
+		tfNameD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfNameD.setColumns(10);
 		tfNameD.setBorder(grayBorder);
 		
-		JButton btnClearAllD = new JButton("CLEAR ALL");
+		JButton btnClearAllD = new JButton("CANCLE");
+		btnClearAllD.setBackground(new Color(125, 149, 136));
+		btnClearAllD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnClearAllD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clearAdd(1);
@@ -122,6 +142,8 @@ public class Manager extends JFrame{
 		});
 		
 		JButton btnAddD = new JButton("ADD");
+		btnAddD.setBackground(new Color(125, 149, 136));
+		btnAddD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnAddD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(checkData(1))
@@ -131,141 +153,158 @@ public class Manager extends JFrame{
 		});
 		
 		JLabel lblAddressD = new JLabel("Address");
+		lblAddressD.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		rgD=new ButtonGroup();
 		rgD.add(rbFemaleD);
 		rgD.add(rbMaleD);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBackground(new Color(153, 255, 153));
+		lblNewLabel.setIcon(new ImageIcon(Manager.class.getResource("/images/D1.jpg")));
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Manager.class.getResource("/images/D2.jpg")));
 		
 
 		
 		
 		GroupLayout gl_AddDoctor = new GroupLayout(AddDoctor);
 		gl_AddDoctor.setHorizontalGroup(
-			gl_AddDoctor.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_AddDoctor.createSequentialGroup()
-					.addContainerGap(97, Short.MAX_VALUE)
-					.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addComponent(lblNameD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(tfNameD, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addComponent(lblPhoneD, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-							.addGap(44)
-							.addComponent(tfPhoneD, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addComponent(lblPasswordD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(passwordD, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-							.addGap(12)
-							.addComponent(lblConfD, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(passwordConfirmD, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_AddDoctor.createSequentialGroup()
-									.addComponent(lblGenderD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(rbMaleD, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-									.addComponent(rbFemaleD, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_AddDoctor.createSequentialGroup()
-									.addComponent(lblAddressD, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-									.addGap(64)
-									.addComponent(tfAddressD, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
-							.addGap(45)
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnAddD, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnClearAllD, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))))
-					.addGap(71))
-		);
-		gl_AddDoctor.setVerticalGroup(
 			gl_AddDoctor.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_AddDoctor.createSequentialGroup()
-					.addGap(39)
-					.addGroup(gl_AddDoctor.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_AddDoctor.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblNameD))
-								.addComponent(tfNameD, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPhoneD)
-								.addGroup(gl_AddDoctor.createSequentialGroup()
-									.addGap(4)
-									.addComponent(tfPhoneD, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-							.addGap(18)
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAddressD)
-								.addComponent(tfAddressD, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_AddDoctor.createSequentialGroup()
-									.addGap(4)
-									.addComponent(lblGenderD))
-								.addComponent(rbMaleD)
-								.addComponent(rbFemaleD))
-							.addGap(18))
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addComponent(btnAddD)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnClearAllD)
-							.addGap(30)))
+					.addContainerGap()
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 					.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblPasswordD))
-						.addComponent(passwordD, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_AddDoctor.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblConfD))
-						.addComponent(passwordConfirmD, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(117, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_AddDoctor.createSequentialGroup()
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_AddDoctor.createSequentialGroup()
+											.addComponent(lblNameD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+											.addGap(22)
+											.addComponent(tfNameD, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_AddDoctor.createSequentialGroup()
+											.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblAddressD, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblPhoneD, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+											.addGap(36)
+											.addGroup(gl_AddDoctor.createParallelGroup(Alignment.TRAILING)
+												.addComponent(tfAddressD, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+												.addComponent(tfPhoneD, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
+											.addGap(18))
+										.addGroup(gl_AddDoctor.createSequentialGroup()
+											.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblGenderD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblPasswordD, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+											.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+												.addComponent(passwordD, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_AddDoctor.createSequentialGroup()
+													.addComponent(rbMaleD, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+													.addGap(31)
+													.addComponent(rbFemaleD, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))))
+									.addGap(18))
+								.addGroup(gl_AddDoctor.createSequentialGroup()
+									.addComponent(lblConfD, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(passwordConfirmD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))))
+						.addGroup(Alignment.TRAILING, gl_AddDoctor.createSequentialGroup()
+							.addGap(29)
+							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnClearAllD, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+								.addComponent(btnAddD, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 321, GroupLayout.PREFERRED_SIZE)
+					.addGap(1620))
 		);
+		gl_AddDoctor.setVerticalGroup(
+			gl_AddDoctor.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_AddDoctor.createSequentialGroup()
+					.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_AddDoctor.createSequentialGroup()
+							.addGap(15)
+							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+						.addGroup(gl_AddDoctor.createSequentialGroup()
+							.addGap(40)
+							.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 355, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_AddDoctor.createSequentialGroup()
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblNameD)
+										.addComponent(tfNameD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.BASELINE)
+										.addComponent(tfPhoneD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPhoneD))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblAddressD)
+										.addComponent(tfAddressD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.BASELINE)
+										.addComponent(rbFemaleD)
+										.addComponent(rbMaleD)
+										.addComponent(lblGenderD))
+									.addGap(16)
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.BASELINE)
+										.addComponent(passwordD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPasswordD))
+									.addGap(18)
+									.addGroup(gl_AddDoctor.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblConfD)
+										.addComponent(passwordConfirmD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addComponent(btnAddD)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnClearAllD)))))
+					.addGap(32))
+		);
+		rbFemaleD.setBackground(new Color(167, 200, 183));
+		rbMaleD.setBackground(new Color(167, 200, 183));
+		rbFemaleD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
+		rbMaleD.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		AddDoctor.setLayout(gl_AddDoctor);
 		
 		JPanel AddNurse = new JPanel();
-		tabbedPane.addTab("Add new Nurse", null, AddNurse, null);
-		
-		JLabel lblGenderN = new JLabel("gender");
+		AddNurse.setBackground(new Color(200, 235, 231));
+		tabbedPane.addTab("Add new nurse", null, AddNurse, null);
 		
 
 		rgN=new ButtonGroup();
 		rgN.add(rbFemaleN);
 		rgN.add(rbMaleN);
 		
-		JLabel lblNameN = new JLabel("Name");
-		
 		tfNameN = new JTextField();
+		tfNameN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfNameN.setColumns(10);
 		tfNameN.setBorder(grayBorder);
 		
-		JLabel lblPhoneN = new JLabel("phone");
-		
 		tfPhoneN = new JTextField();
+		tfPhoneN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfPhoneN.setColumns(10);
 		tfPhoneN.setBorder(grayBorder);
 		
-		JLabel lblAddressN = new JLabel("Address");
-		
 		tfAddressN = new JTextField();
+		tfAddressN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfAddressN.setColumns(10);
 		tfAddressN.setBorder(grayBorder);
 		
-		JLabel lblPasswordN = new JLabel("password");
-		
 		passwordN = new JPasswordField();
+		passwordN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		passwordN.setColumns(10);
 		passwordN.setBorder(grayBorder);
 		
-		JLabel lblConfN = new JLabel("confirm password");
-		
 		passwordConfirmN = new JPasswordField();
+		passwordConfirmN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		passwordConfirmN.setColumns(10);
 		passwordConfirmN.setBorder(grayBorder);
 		
 		JButton btnAddN = new JButton("ADD");
+		btnAddN.setBackground(new Color(70, 115, 154));
+		btnAddN.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnAddN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(checkData(2))
@@ -274,235 +313,320 @@ public class Manager extends JFrame{
 			}
 		});
 		
-		JButton btnClearAllN = new JButton("CLEAR ALL");
+		JButton btnClearAllN = new JButton("CANCLE");
+		btnClearAllN.setBackground(new Color(226, 108, 79));
+		btnClearAllN.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnClearAllN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearAdd(2);
 			}
 		});
+		
+		JLabel label_1 = new JLabel("Name");
+		label_1.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_2 = new JLabel("Phone");
+		label_2.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_3 = new JLabel("Address");
+		label_3.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_4 = new JLabel("Gender");
+		label_4.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_5 = new JLabel("Password");
+		label_5.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_6 = new JLabel("Confirm password");
+		label_6.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(Manager.class.getResource("/images/N1.jpg")));
+		
+		JLabel label_7 = new JLabel("");
+		label_7.setIcon(new ImageIcon(Manager.class.getResource("/images/N2.jpg")));
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(Manager.class.getResource("/images/N4.jpg")));
 		GroupLayout gl_AddNurse = new GroupLayout(AddNurse);
 		gl_AddNurse.setHorizontalGroup(
 			gl_AddNurse.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_AddNurse.createSequentialGroup()
-					.addGap(80)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_AddNurse.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addComponent(lblNameN, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(tfNameN, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
+								.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
+							.addGap(27))
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addComponent(lblPhoneN, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-							.addGap(44)
-							.addComponent(tfPhoneN, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addComponent(lblAddressN, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-							.addGap(64)
-							.addComponent(tfAddressN, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-							.addGap(68)
-							.addComponent(btnAddN, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addComponent(lblGenderN, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(rbMaleN, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-							.addComponent(rbFemaleN, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addGap(45)
-							.addComponent(btnClearAllN, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addComponent(lblPasswordN, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(passwordN, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-							.addGap(12)
-							.addComponent(lblConfN, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(passwordConfirmN, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(88, Short.MAX_VALUE))
+							.addComponent(btnAddN, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addGap(31)))
+					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnClearAllN, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(rbMaleN, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfNameN)
+						.addComponent(tfPhoneN)
+						.addComponent(tfAddressN)
+						.addComponent(passwordConfirmN)
+						.addComponent(passwordN)
+						.addComponent(rbFemaleN, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+					.addGap(25))
 		);
 		gl_AddNurse.setVerticalGroup(
 			gl_AddNurse.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_AddNurse.createSequentialGroup()
-					.addGap(38)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_AddNurse.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblNameN))
-						.addComponent(tfNameN, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPhoneN)
+							.addContainerGap()
+							.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(4)
-							.addComponent(tfPhoneN, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-					.addGap(8)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
+							.addGap(20)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 436, Short.MAX_VALUE))
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblAddressN))
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(10)
-							.addComponent(tfAddressN, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnAddN))
-					.addGap(4)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_AddNurse.createSequentialGroup()
+							.addGap(40)
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfNameN, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfPhoneN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(lblGenderN))
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfAddressN, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_AddNurse.createSequentialGroup()
+									.addGap(18)
+									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_AddNurse.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(rbMaleN)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(rbFemaleN)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(passwordN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(passwordConfirmN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_AddNurse.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnClearAllN, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAddN, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 117, Short.MAX_VALUE))
 						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(14)
-							.addComponent(rbMaleN))
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(14)
-							.addComponent(rbFemaleN))
-						.addComponent(btnClearAllN))
-					.addGap(18)
-					.addGroup(gl_AddNurse.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblPasswordN))
-						.addComponent(passwordN, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_AddNurse.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblConfN))
-						.addComponent(passwordConfirmN, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(118, Short.MAX_VALUE))
+							.addContainerGap(174, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
+		rbMaleN.setBackground(new Color(200, 235, 231));
+		rbFemaleN.setBackground(new Color(200, 235, 231));
+		rbMaleN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
+		rbFemaleN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		AddNurse.setLayout(gl_AddNurse);
 		
+		spinnerFrom = new JSpinner(new SpinnerDateModel());
+		
+		spinnerTo = new JSpinner(new SpinnerDateModel());
+		
 		JPanel PatientsVisitedDoctors = new JPanel();
+		PatientsVisitedDoctors.setBackground(new Color(0,182,214));
 		tabbedPane.addTab("Patients visited a doctor", null, PatientsVisitedDoctors, null);
-				
+		
 		JLabel NoOfPatients = new JLabel("Number of patients");
-		NoOfPatients.setFont(new Font("Graph", Font.BOLD, 9));
+		NoOfPatients.setHorizontalAlignment(SwingConstants.CENTER);
+		NoOfPatients.setFont(new Font("Palatino Linotype", Font.BOLD, 18));
 		
 		JLabel tfNoP = new JLabel();
 		tfNoP.setHorizontalAlignment(SwingConstants.CENTER);
-		tfNoP.setFont(new Font("Dialog", Font.BOLD, 27));
+		tfNoP.setFont(new Font("Dialog", Font.BOLD, 25));
 		
+		 
+		 JLabel tfNoV = new JLabel();
+		 tfNoV.setHorizontalAlignment(SwingConstants.CENTER);
+		 tfNoV.setFont(new Font("Dialog", Font.BOLD, 25));
+		 
 		JLabel lblNoOfP = new JLabel("patients have visited  Dr. ");
+		lblNoOfP.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		 comboBoxDoctorName = new JComboBox<String>();
-		
-		JLabel lblFrom = new JLabel("from");
-		
-		spinnerFrom = new JSpinner();
-		
-		JLabel lblTo = new JLabel("to");
-		
-		spinnerTo = new JSpinner();
-		
-		JButton btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-		        if (model.getRowCount() > 0) {
-		            for (int i = model.getRowCount() - 1; i > -1; i--) {
-		            	model.removeRow(i);
-		            }}
+		 comboBoxDoctorName.setBackground(Color.WHITE);
+		 comboBoxDoctorName.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 
+		 JLabel lblFrom = new JLabel("from");
+		 lblFrom.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 
+		 JLabel lblTo = new JLabel("to");
+		 lblTo.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 
+		 JButton btnSearch = new JButton("Search");
+		 btnSearch.setBackground(Color.WHITE);
+		 btnSearch.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 btnSearch.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		         if (model.getRowCount() > 0) {
+		             for (int i = model.getRowCount() - 1; i > -1; i--) {
+		             	model.removeRow(i);
+		             }}
 
-				try {
-					
-					String fromDate=formater.format(spinnerFrom.getValue());
-					String ToDate=formater.format(spinnerTo.getValue());
-					Class.forName("org.sqlite.JDBC");
-			        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
-			        stmt = c.createStatement();
-			        String DoctorName=comboBoxDoctorName.getSelectedItem().toString();
-			        ResultSet rs=stmt.executeQuery("SELECT patientID, Patient.name, date, enter FROM Visit,Patient,Doctor where patientID=patient.ID and doctorID=Doctor.ID and Doctor.name='"+
-			        		DoctorName+ "' and date between '"+fromDate+"' and '"+ToDate+"';");
-			        ArrayList<String> patients=new ArrayList<>();
-			        while(rs.next()) {
-			        	String name=rs.getString("name");
-			 			model.addRow(new String[]{rs.getString("patientID"),name,rs.getString("date"),rs.getString("enter")});
-			 			if(!patients.contains(name))
-			 				patients.add(name);
-			        }
-			    	tfNoP.setText(patients.size()+"");				
-					c.close();
-		    	 }catch(Exception e1) {
-		    		 JOptionPane.showMessageDialog(null,"there is not any doctors yet");
-			    	 }
-			
-				
-			}
-		});
-		
-		scrollPane_1 = new JScrollPane();
-		spinnerFrom = new JSpinner();
-		spinnerFrom.setModel(new SpinnerDateModel());
-		spinnerFrom.setEditor(new JSpinner.DateEditor(spinnerFrom, formater.toPattern()));
-		
-		spinnerTo = new JSpinner();
-		spinnerTo.setModel(new SpinnerDateModel());
-		spinnerTo.setEditor(new JSpinner.DateEditor(spinnerTo, formater.toPattern()));
-		
-		
-		GroupLayout gl_PatientsVisitedDoctors = new GroupLayout(PatientsVisitedDoctors);
-		gl_PatientsVisitedDoctors.setHorizontalGroup(
-			gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-							.addComponent(lblNoOfP, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
-							.addGap(3)
-							.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblFrom, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinnerFrom, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblTo, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinnerTo, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 552, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-									.addComponent(NoOfPatients, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-								.addComponent(tfNoP, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_PatientsVisitedDoctors.setVerticalGroup(
-			gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-					.addGap(18)
-					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblNoOfP)
-							.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-							.addGap(2)
-							.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblFrom)
-								.addComponent(spinnerFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTo)
-								.addComponent(spinnerTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-							.addGap(34)
-							.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(NoOfPatients, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfNoP, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
-		PatientsVisitedDoctors.setLayout(gl_PatientsVisitedDoctors);
+		 		try {
+		 			
+		 			String fromDate=formater.format(spinnerFrom.getValue());
+		 			String ToDate=formater.format(spinnerTo.getValue());
+		 			Class.forName("org.sqlite.JDBC");
+		 	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+		 	        stmt = c.createStatement();
+		 	        String DoctorName=comboBoxDoctorName.getSelectedItem().toString();
+		 	        ResultSet rs=stmt.executeQuery("SELECT patientID, Patient.name, date, enter FROM Visit,Patient,Doctor where patientID=Patient.ID and doctorID=Doctor.ID and Doctor.name='"+
+		 	        		DoctorName.substring(0,DoctorName.indexOf(" ,"))+"' and date between '"+fromDate+"' and '"+ToDate+ "';");      
+		 	        ArrayList<String> patients=new ArrayList<>();
+		 	       int vs=0;
+		 	        while(rs.next()) {
+		 	        	String name=rs.getString("name");
+		 	 			model.addRow(new String[]{rs.getString("patientID"),name,rs.getString("date"),rs.getString("enter")});
+		 	 			if(!patients.contains(name))
+		 	 				patients.add(name);
+		 	 			vs++;
+		 	        }
+		 	    	tfNoP.setText(patients.size()+"");	
+		 	    	tfNoV.setText(vs+"");
+		 			c.close();
+		     	 }catch(Exception e1) {
+		     		 JOptionPane.showMessageDialog(null,"there is not any doctors yet");
+		 	    	 }
+		 	
+		 		
+		 	}
+		 });
+		 
+		 scrollPane_1 = new JScrollPane();
+		 spinnerFrom_1 = new JSpinner();
+		 spinnerFrom_1.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 spinnerFrom_1.setModel(new SpinnerDateModel());
+		 DateEditor de_spinnerFrom_1 = new JSpinner.DateEditor(spinnerFrom_1, formater.toPattern());
+		 de_spinnerFrom_1.setBackground(Color.WHITE);
+		 spinnerFrom_1.setEditor(de_spinnerFrom_1);
+		 
+		 spinnerTo_1 = new JSpinner();
+		 spinnerTo_1.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		 spinnerTo_1.setModel(new SpinnerDateModel());
+		 DateEditor de_spinnerTo_1 = new JSpinner.DateEditor(spinnerTo_1, formater.toPattern());
+		 de_spinnerTo_1.setBackground(Color.WHITE);
+		 spinnerTo_1.setEditor(de_spinnerTo_1);
+		 
+		 JLabel label_8 = new JLabel("");
+		 label_8.setIcon(new ImageIcon(Manager.class.getResource("/images/PD.png")));
+		 
+		 JLabel lblNumberOfVisits = new JLabel("Number of visits");
+		 lblNumberOfVisits.setHorizontalAlignment(SwingConstants.CENTER);
+		 lblNumberOfVisits.setFont(new Font("Dialog", Font.BOLD, 18));
+
+		 
+		 GroupLayout gl_PatientsVisitedDoctors = new GroupLayout(PatientsVisitedDoctors);
+		 gl_PatientsVisitedDoctors.setHorizontalGroup(
+		 	gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 		.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 			.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 					.addContainerGap()
+		 					.addComponent(lblNoOfP, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		 					.addPreferredGap(ComponentPlacement.RELATED)
+		 					.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
+		 					.addGap(29)
+		 					.addComponent(lblFrom, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+		 					.addPreferredGap(ComponentPlacement.RELATED)
+		 					.addComponent(spinnerFrom_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		 					.addGap(18)
+		 					.addComponent(lblTo)
+		 					.addPreferredGap(ComponentPlacement.RELATED)
+		 					.addComponent(spinnerTo_1, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+		 					.addGap(116))
+		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 					.addGap(20)
+		 					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 587, GroupLayout.PREFERRED_SIZE)
+		 					.addPreferredGap(ComponentPlacement.UNRELATED)
+		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 						.addComponent(label_8)
+		 						.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+		 						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 							.addGap(6)
+		 							.addComponent(NoOfPatients)
+		 							.addPreferredGap(ComponentPlacement.RELATED)
+		 							.addComponent(tfNoP, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+		 						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 							.addComponent(lblNumberOfVisits, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+		 							.addGap(18)
+		 							.addComponent(tfNoV, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
+		 					.addGap(22)))
+		 			.addContainerGap())
+		 );
+		 gl_PatientsVisitedDoctors.setVerticalGroup(
+		 	gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 		.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 			.addGap(24)
+		 			.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.BASELINE)
+		 				.addComponent(lblNoOfP)
+		 				.addComponent(comboBoxDoctorName, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+		 				.addComponent(lblFrom)
+		 				.addComponent(spinnerFrom_1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+		 				.addComponent(lblTo)
+		 				.addComponent(spinnerTo_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+		 			.addGap(11)
+		 			.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 					.addGap(7)
+		 					.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+		 					.addGap(8)
+		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 						.addComponent(NoOfPatients, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+		 						.addComponent(tfNoP, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+		 					.addPreferredGap(ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
+		 						.addComponent(lblNumberOfVisits, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+		 						.addComponent(tfNoV, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+		 					.addPreferredGap(ComponentPlacement.RELATED)
+		 					.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+		 				.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE))
+		 			.addContainerGap())
+		 );
+		 PatientsVisitedDoctors.setLayout(gl_PatientsVisitedDoctors);
+		 
+	    scrollPane_1.setViewportView(doctor_patient_info);
+	    doctor_patient_info = new JTable(model);
+	    scrollPane_1.setViewportView(doctor_patient_info);
 		
 		JPanel PatientWaitngTime = new JPanel();
+		PatientWaitngTime.setBackground(new Color(42, 80,128));
 		tabbedPane.addTab("Patient's waiting time", null, PatientWaitngTime, null);
 		
 		JSpinner spinnerWaiting = new JSpinner();
+		spinnerWaiting.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		spinnerWaiting.setModel(new SpinnerDateModel());
 		spinnerWaiting.setEditor(new JSpinner.DateEditor(spinnerWaiting, formater.toPattern()));
 		
 		JLabel lblwaiting = new JLabel("Date :");
+		lblwaiting.setForeground(Color.WHITE);
+		lblwaiting.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		JButton btnFind = new JButton("Find out");
+		JButton btnFind = new JButton("For all pateints");
+		btnFind.setBackground(new Color(149,168,192));
+		btnFind.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		JLabel lblAvg = new JLabel("00");
+		lblAvg.setHorizontalAlignment(SwingConstants.CENTER);
 
 		btnFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -530,7 +654,25 @@ public class Manager extends JFrame{
 			        	String[] esplit = e.split(":");
 			        	int ehours = Integer.valueOf(esplit[0]);
 			        	int eminutes = Integer.valueOf(esplit[1]);
-			            int diffMinutes = (eminutes - aminutes) +60*(ehours-ahours);
+			        	int diffMinutes=0;
+			        /*	if(eminutes > aminutes) {
+			        		 diffMinutes = (eminutes - aminutes) +60*(ehours-ahours);
+			        		 if(ahours<ehours)
+			        			 diffMinutes-=60;
+			        		 }
+			        	else {
+			        		 diffMinutes = ( eminutes-aminutes ) +60*(ehours-ahours);
+			        		 }*/
+			        	if(eminutes >= aminutes&&ehours>ahours) 
+			        		diffMinutes = (eminutes-aminutes ) +60*(ehours-ahours)-60;
+			        	else if(eminutes >= aminutes&&ehours==ahours) 
+			        		diffMinutes = (eminutes-aminutes ) +60*(ehours-ahours);    	
+			        	else if(eminutes > aminutes&&ehours<ahours) 
+			        		diffMinutes = (eminutes-aminutes ) +ehours+24-ahours;
+			        	else if(eminutes < aminutes&&ehours>ahours) 
+			        		diffMinutes = (aminutes-eminutes )+60*(ehours-ahours);
+			        	else
+			        		diffMinutes = (aminutes+eminutes )+60*(ehours+ahours);
 			            sum+=diffMinutes;
 			 			modelWaiting.addRow(new String[]{rs.getString("patientID"),rs.getString("name"),diffMinutes+""});
 			        }
@@ -545,47 +687,140 @@ public class Manager extends JFrame{
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JLabel lblAverage = new JLabel("Average in minutes : ");
+		JLabel lblAverage = new JLabel("Average \n in  minutes : ");
+		lblAverage.setForeground(Color.WHITE);
+		lblAverage.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		lblAverage.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		lblAvg.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblAvg.setForeground(UIManager.getColor("OptionPane.errorDialog.border.background"));
+		lblAvg.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblAvg.setForeground(Color.WHITE);
+		
+		JLabel label = new JLabel("Patient Name,ID :");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JComboBox<String> comboBoxPName = new JComboBox<String>();
+		comboBoxPName.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		try {
+			Class.forName("org.sqlite.JDBC");
+	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+	        stmt = c.createStatement();
+	        ResultSet rs=stmt.executeQuery("SELECT name, ID FROM Patient;");
+	        while(rs.next()) {
+	        	comboBoxPName.addItem(rs.getString("name")+" ,ID: "+rs.getString("ID"));
+	        }
+    	 }catch(Exception e) {}
+		JButton btnOneP = new JButton("For a specific patient");
+		btnOneP.setBackground(new Color(149,168,192));
+		btnOneP.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		btnOneP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String waitingDate=formater.format(spinnerWaiting.getValue());
+		        int count=0;
+		        long sum=0;
+		        if (modelWaiting.getRowCount() > 0) {
+		            for (int i = modelWaiting.getRowCount() - 1; i > -1; i--) {
+		            	modelWaiting.removeRow(i);
+		            }
+		        }
+				try {
+					String PN=(comboBoxPName.getSelectedItem()+"");
+					PN=PN.substring(PN.indexOf(": ")+2);
+					Class.forName("org.sqlite.JDBC");
+			        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+			        stmt = c.createStatement();
+			        DoctorID=comboBoxDoctorName.getSelectedItem().toString();
+			        ResultSet rs=stmt.executeQuery("SELECT patientID, name, enter ,arrival  FROM Visit,Patient where patientID=ID and date = '"+waitingDate+"' and patientID='"+PN+"';");
+			        while(rs.next()) {
+			        	count++;
+			        	String e=rs.getString("enter");
+			        	String a=rs.getString("arrival");
+			        	String[] asplit = a.split(":");
+			        	int ahours = Integer.valueOf(asplit[0]);
+			        	int aminutes = Integer.valueOf(asplit[1]);
+			        	String[] esplit = e.split(":");
+			        	int ehours = Integer.valueOf(esplit[0]);
+			        	int eminutes = Integer.valueOf(esplit[1]);
+			            int diffMinutes = (eminutes - aminutes) +60*(ehours-ahours);
+			            sum+=diffMinutes;
+			 			modelWaiting.addRow(new String[]{rs.getString("patientID"),rs.getString("name"),diffMinutes+""});
+			        }
+			        c.close();
+			      }catch(Exception e1){     }
+				if(count>0)
+					lblAvg.setText(sum/count+"");
+				else 
+					lblAvg.setText("00");
+			
+				
+			}
+		});
+		
+		JLabel label_9 = new JLabel("");
+		label_9.setIcon(new ImageIcon(Manager.class.getResource("/images/PW.png")));
 		GroupLayout gl_PatientWaitngTime = new GroupLayout(PatientWaitngTime);
 		gl_PatientWaitngTime.setHorizontalGroup(
-			gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
+			gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_PatientWaitngTime.createSequentialGroup()
-					.addGap(19)
 					.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 631, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
-							.addComponent(lblwaiting)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(spinnerWaiting, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+							.addGap(19)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+							.addGap(22)
+							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
+								.addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblwaiting))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(spinnerWaiting, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxPName, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(btnFind)
-							.addGap(69)
-							.addComponent(lblAverage)
+							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnOneP, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnFind, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))))
+					.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
 							.addGap(18)
-							.addComponent(lblAvg)))
-					.addContainerGap(20, Short.MAX_VALUE))
+							.addComponent(lblAverage, GroupLayout.PREFERRED_SIZE, 215, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblAvg, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+							.addGap(27)
+							.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)))
+					.addGap(28))
 		);
 		gl_PatientWaitngTime.setVerticalGroup(
-			gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
+			gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_PatientWaitngTime.createSequentialGroup()
-					.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap()
+					.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.BASELINE)
-								.addComponent(spinnerWaiting, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblwaiting)
-								.addComponent(btnFind))
-							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+							.addComponent(spinnerWaiting, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(2)
+							.addComponent(comboBoxPName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
-							.addContainerGap()
+							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+									.addComponent(btnFind)
+									.addGap(2))
+								.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+									.addComponent(lblwaiting)
+									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAverage)
-								.addComponent(lblAvg))
-							.addGap(18)))
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label)
+								.addComponent(btnOneP)))
+						.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(lblAverage, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblAvg, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+					.addGroup(gl_PatientWaitngTime.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+							.addGap(10)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_PatientWaitngTime.createSequentialGroup()
+							.addGap(58)
+							.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		
@@ -595,17 +830,13 @@ public class Manager extends JFrame{
 		modelWaiting.addColumn("ID");
 		modelWaiting.addColumn("Name");
 		modelWaiting.addColumn("Waiting time (in minutes)");
-		
-	    scrollPane_1.setViewportView(doctor_patient_info);
-		doctor_patient_info = new JTable(model);
-		scrollPane_1.setViewportView(doctor_patient_info);
     	try {
 			Class.forName("org.sqlite.JDBC");
 	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
 	        stmt = c.createStatement();
 	        ResultSet rs=stmt.executeQuery("SELECT name, ID FROM Doctor;");
 	        while(rs.next()) {
-	        	comboBoxDoctorName.addItem(rs.getString("name"));
+	        	comboBoxDoctorName.addItem(rs.getString("name")+" ,ID: "+rs.getString("ID"));
 	        }
     	 }catch(Exception e) {}
     	 model.addColumn("ID");
@@ -715,7 +946,7 @@ public class Manager extends JFrame{
         }
 		return true;
 	}
-	void clearAdd(int t) {
+	private void clearAdd(int t) {
 		if(t == 1) {
 			passwordD.setText("");
 			passwordConfirmD.setText("");
@@ -734,7 +965,7 @@ public class Manager extends JFrame{
 		grayAll(t);
 	}
 
-	void grayAll(int t) {
+	private void grayAll(int t) {
 		if(t == 1) {
 			passwordD.setBorder(grayBorder);
 			passwordConfirmD.setBorder(grayBorder);
@@ -750,7 +981,7 @@ public class Manager extends JFrame{
 		}
 		
 	}
-	void insertToTable(int t) {
+	private void insertToTable(int t) {
 		try {
             Connection c = null;
             java.sql.Statement stmt ;
@@ -783,7 +1014,7 @@ public class Manager extends JFrame{
                  c.close();
                  JOptionPane.showMessageDialog(null, "Successfully added \n ID : "+ID);
          		 clearAdd(t);
-         		comboBoxDoctorName.addItem(name);
+         		comboBoxDoctorName.addItem(name+", ID :"+ID);
                    }else {
 
                    	if(rbMaleN.isSelected())

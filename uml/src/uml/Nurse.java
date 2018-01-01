@@ -14,6 +14,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JSpinner;
 import javax.swing.JRadioButton;
+import java.awt.Font;
 
 public class Nurse extends JFrame {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -55,37 +57,60 @@ public class Nurse extends JFrame {
 
 	public Nurse(String ID) {
 		this.setVisible(true);;
-		this.setSize(467,255);
+		this.setSize(650,416);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(3);
 		this.setTitle("Nurse");
 		this.setLocationRelativeTo(null);
-		
+		ImageIcon img = new ImageIcon(auth.class.getResource("/images/HIS.png"));
+		this.setIconImage(img.getImage());
 		JPanel patient = new JPanel();
+		patient.setBackground(new Color(113,207,243));
 		tabbedPane.addTab("patient info", null, patient, null);
 		
 		JLabel lblID = new JLabel("ID");
+		lblID.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		PID = new JTextField();
+		PID = new RoundJTextField(50);
+		PID.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		PID.setColumns(10);
 		
-		JLabel lblTepreture = new JLabel("Tepreture");
-		
-		PTemp = new JTextField();
+		PTemp = new RoundJTextField(50);
+		PTemp.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		PTemp.setColumns(10);
 		
-		JLabel lblHeartRate = new JLabel("Heart rate");
-		
-		heartRate = new JTextField();
+		heartRate = new RoundJTextField(50);
+		heartRate.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		heartRate.setColumns(10);
 		
 		JLabel lblHasNewAllergies = new JLabel("Has NEW Allergie(s) to specific Medicine");
+		lblHasNewAllergies.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JRadioButton rdbtnNYes = new JRadioButton("Yes");
+		rdbtnNYes.setBackground(new Color(113,207,243));
+		rdbtnNYes.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		rdbtnNYes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnNYes.isSelected()) {
+					tfNAllergies.setEditable(true);
+				}
+					
+			}
+		});
 		
 		JRadioButton rdbtnNNo = new JRadioButton("No");
+		rdbtnNNo.setBackground(new Color(113,207,243));
+		rdbtnNNo.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		rdbtnNNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnNNo.isSelected()) {
+					tfNAllergies.setEditable(false);
+				}
+			}
+		});
 		
 		tfNAllergies = new JTextField();
+		tfNAllergies.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfNAllergies.setEditable(false);
 		tfNAllergies.setColumns(10);
 		
@@ -94,7 +119,8 @@ public class Nurse extends JFrame {
 		rg.add(rdbtnNYes);
 		
 		
-		JButton btnWaitForA = new JButton("wait for a doctor");
+		JButton btnWaitForA = new JButton("OK");
+		btnWaitForA.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnWaitForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(PID.getText().trim().equals("")||PTemp.getText().trim().equals("")||heartRate.getText().trim().equals("")||!rdbtnNYes.isSelected()&&!rdbtnNNo.isSelected()) {
@@ -155,7 +181,8 @@ public class Nurse extends JFrame {
 			}}
 		);
 		
-		JButton btnClearAll = new JButton("clear all");
+		JButton btnClearAll = new JButton("Clear");
+		btnClearAll.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				heartRate.setText("");
@@ -169,75 +196,91 @@ public class Nurse extends JFrame {
 		
 		
 		JLabel label_2 = new JLabel("medicine(s) name(s) :");
+		label_2.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_6 = new JLabel("Tepmreture");
+		label_6.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_7 = new JLabel("Heart rate");
+		label_7.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		
+		JLabel label_4 = new JLabel("");
+		label_4.setIcon(new ImageIcon(Nurse.class.getResource("/images/n1.png")));
 		GroupLayout gl_patient = new GroupLayout(patient);
 		gl_patient.setHorizontalGroup(
-			gl_patient.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_patient.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHeartRate)
-						.addComponent(lblTepreture)
-						.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING)
-							.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(PTemp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(heartRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_patient.createSequentialGroup()
-							.addGap(24)
-							.addComponent(rdbtnNYes, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(rdbtnNNo, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_patient.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblHasNewAllergies, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
-						.addGroup(gl_patient.createSequentialGroup()
-							.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(btnClearAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnWaitForA))
-								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
-					.addGap(24))
-		);
-		gl_patient.setVerticalGroup(
 			gl_patient.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_patient.createSequentialGroup()
-					.addContainerGap(38, Short.MAX_VALUE)
-					.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING, false)
+					.addGap(99)
+					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_patient.createSequentialGroup()
-							.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblID)
+							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_6, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+								.addComponent(label_7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(41)
+							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(PTemp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(heartRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
-								.addComponent(PTemp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTepreture))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
-								.addComponent(heartRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblHeartRate)))
+							.addGap(4)
+							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 286, Short.MAX_VALUE))
 						.addGroup(gl_patient.createSequentialGroup()
-							.addGap(10)
+							.addComponent(lblHasNewAllergies, GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+							.addGap(121))
+						.addGroup(gl_patient.createSequentialGroup()
+							.addComponent(label_2)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+							.addGap(47)
+							.addComponent(btnWaitForA)
+							.addGap(16)
+							.addComponent(btnClearAll)))
+					.addContainerGap())
+				.addGroup(gl_patient.createSequentialGroup()
+					.addGap(302)
+					.addComponent(rdbtnNYes, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(rdbtnNNo, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+					.addGap(281))
+		);
+		gl_patient.setVerticalGroup(
+			gl_patient.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_patient.createSequentialGroup()
+					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_patient.createSequentialGroup()
+							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_patient.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_patient.createSequentialGroup()
+									.addGap(76)
+									.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_patient.createSequentialGroup()
+											.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addGap(14)
+											.addComponent(PTemp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(heartRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_patient.createSequentialGroup()
+											.addComponent(lblID)
+											.addGap(44)
+											.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblHasNewAllergies)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
 								.addComponent(rdbtnNYes)
 								.addComponent(rdbtnNNo))
-							.addGap(5)
+							.addGap(14)
 							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label_2)
-								.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(3)))
-					.addGap(18)
-					.addComponent(btnWaitForA)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnClearAll)
-					.addGap(20))
+								.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnWaitForA)
+								.addComponent(btnClearAll)))
+						.addGroup(gl_patient.createSequentialGroup()
+							.addGap(104)
+							.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(60, Short.MAX_VALUE))
 		);
 		patient.setLayout(gl_patient);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -251,55 +294,90 @@ public class Nurse extends JFrame {
 		);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(14,120,160));
 		tabbedPane.addTab("patients first visit ", null, panel, null);
 		
 		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JLabel lblPhone = new JLabel("phone");
+		lblPhone.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JLabel lblAddress = new JLabel("address");
+		lblAddress.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		JLabel lblTepreture_1 = new JLabel("tepreture");
+		JLabel lblTepreture_1 = new JLabel("Tepmreture");
+		lblTepreture_1.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		JLabel lblHeartRate_1 = new JLabel("heart rate");
+		JLabel lblHeartRate_1 = new JLabel("Heart rate");
+		lblHeartRate_1.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		tfPN = new JTextField();
+		tfPN.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfPN.setColumns(10);
 		
 		tfPPhone = new JTextField();
+		tfPPhone.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfPPhone.setColumns(10);
 		
 		tfPAddress = new JTextField();
+		tfPAddress.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfPAddress.setColumns(10);
 		
-		JLabel lblDateOfBirth = new JLabel("date of birth");
+		JLabel lblDateOfBirth = new JLabel("Date of birth");
+		lblDateOfBirth.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JSpinner spinnerDOB = new JSpinner();
+		spinnerDOB.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		spinnerDOB.setModel(new SpinnerDateModel());
 		spinnerDOB.setEditor(new JSpinner.DateEditor(spinnerDOB, dateFormater.toPattern()));
 		
 		tfHR = new JTextField();
+		tfHR.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		tfHR.setColumns(10);
 		
 		tfTemp = new JTextField();
+		tfTemp.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		tfTemp.setColumns(10);
 		
 		JLabel lblEHasAllergies = new JLabel("Has Allergie(s) to specific Medicine");
+		lblEHasAllergies.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
 		JRadioButton rdbtnYes = new JRadioButton("Yes");
-		
+		rdbtnYes.setBackground(new Color(14,120,160));
+		rdbtnYes.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		rdbtnYes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnYes.isSelected()) {
+					tfAllergies.setEditable(true);
+				}
+					
+			}
+		});
 		JRadioButton rdbtnNo = new JRadioButton("No");
-
+		rdbtnNo.setBackground(new Color(14,120,160));
+		rdbtnNo.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
+		rdbtnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnNo.isSelected()) {
+					tfAllergies.setEditable(false);
+				}
+					
+			}
+		});
 		ButtonGroup	rgNew=new ButtonGroup();
 		rgNew.add(rdbtnNo);
 		rgNew.add(rdbtnYes);
 		
 		JLabel label = new JLabel("medicine(s) name(s) :");
+		label.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		
 		tfAllergies = new JTextField();
+		tfAllergies.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		tfAllergies.setEditable(false);
 		tfAllergies.setColumns(10);
 		JButton btnAdd = new JButton("Add");
+		btnAdd.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			if(tfPN.getText().trim().equals("")||tfTemp.getText().trim().equals("")||tfHR.getText().trim().equals("")
@@ -361,118 +439,142 @@ public class Nurse extends JFrame {
 		}
 		});
 		
+		JLabel label_3 = new JLabel("");
+		label_3.setIcon(new ImageIcon(Nurse.class.getResource("/images/nnp.png")));
+		
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(17)
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblName)
-								.addComponent(lblAddress)
-								.addComponent(lblPhone))
-							.addGap(26)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(tfPAddress)
-								.addComponent(tfPPhone)
-								.addComponent(tfPN)))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblDateOfBirth)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinnerDOB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblDateOfBirth)
+									.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+									.addComponent(spinnerDOB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblName)
+										.addComponent(lblPhone)
+										.addComponent(lblAddress))
+									.addGap(26)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(tfPAddress)
+										.addComponent(tfPPhone)
+										.addComponent(tfPN)))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblTepreture_1)
+										.addComponent(lblHeartRate_1))
+									.addGap(18)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(tfHR, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+										.addComponent(tfTemp, 0, 0, Short.MAX_VALUE))))
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblHeartRate_1)
-										.addComponent(lblTepreture_1))
-									.addGap(18)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(tfHR, 0, 0, Short.MAX_VALUE)
-										.addComponent(tfTemp, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-									.addComponent(btnAdd))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(label, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-									.addGap(12)
-									.addComponent(tfAllergies, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(32)
-									.addComponent(rdbtnYes, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(rdbtnNo, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(13)
-							.addComponent(lblEHasAllergies)))
-					.addContainerGap())
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(68)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addGap(86)
+													.addComponent(rdbtnYes, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+													.addGap(31)
+													.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+												.addComponent(tfAllergies, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(label, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(50)
+											.addComponent(btnAdd)))
+									.addContainerGap())
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblEHasAllergies)
+									.addGap(20))))
+						.addComponent(label_3, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblName)
 						.addComponent(tfPN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblName)
 						.addComponent(lblEHasAllergies))
-					.addGap(3)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPhone)
-								.addComponent(tfPPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAddress)
-								.addComponent(tfPAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnYes)
-								.addComponent(rdbtnNo))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(tfAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label))
-							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(11)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblDateOfBirth)
-								.addComponent(spinnerDOB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addComponent(btnAdd))
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnNo)
+								.addComponent(rdbtnYes)
+								.addComponent(lblPhone))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(18)
+									.addComponent(label)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(tfAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(4)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblAddress)
+										.addComponent(tfPAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(tfPPhone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(tfTemp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTepreture_1))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(tfHR, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblHeartRate_1))))
-					.addContainerGap(45, Short.MAX_VALUE))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(18)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblDateOfBirth)
+											.addGap(22)
+											.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(lblTepreture_1)
+												.addComponent(tfTemp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(spinnerDOB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblHeartRate_1)
+										.addComponent(tfHR, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(41)
+									.addComponent(btnAdd)))
+							.addContainerGap(122, Short.MAX_VALUE))
+						.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)))
 		);
 		panel.setLayout(gl_panel);
 		
 		JPanel changePassword = new JPanel();
+		changePassword.setBackground(new Color(253,239,117));
 		tabbedPane.addTab("change password", null, changePassword, null);
 		
 		JLabel lblOld = new JLabel("old password");
+		lblOld.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		Old = new JPasswordField();
+		Old = new RoundJPasswordField(50);
+		Old.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		
 		JLabel lblNew = new JLabel("new password");
+		lblNew.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		New = new JPasswordField();
+		New = new RoundJPasswordField(50);
+		New.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		
 		JLabel lblconfNew = new JLabel("confirm new password");
+		lblconfNew.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		
-		ConfNew = new JPasswordField();
+		ConfNew = new RoundJPasswordField(50);
+		ConfNew.setFont(new Font("Palatino Linotype", Font.PLAIN, 15));
 		
 		JButton btnSave = new JButton("save");
+		btnSave.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(passwordsCheck()){
@@ -509,6 +611,7 @@ public class Nurse extends JFrame {
 		});
 		
 		JButton btnCancle = new JButton("cancle");
+		btnCancle.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnCancle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Old.setText("");
@@ -520,50 +623,78 @@ public class Nurse extends JFrame {
 				
 			}
 		});
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(Nurse.class.getResource("/images/n2.png")));
 		GroupLayout gl_changePassword = new GroupLayout(changePassword);
 		gl_changePassword.setHorizontalGroup(
-			gl_changePassword.createParallelGroup(Alignment.TRAILING)
+			gl_changePassword.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_changePassword.createSequentialGroup()
 					.addGap(25)
 					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblOld)
-						.addComponent(lblNew)
-						.addComponent(lblconfNew))
-					.addGap(22)
-					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(ConfNew)
-						.addComponent(New)
-						.addComponent(Old, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-					.addContainerGap(101, Short.MAX_VALUE))
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addComponent(lblNew)
+							.addContainerGap())
+						.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_changePassword.createSequentialGroup()
+								.addComponent(lblconfNew)
+								.addContainerGap())
+							.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_changePassword.createSequentialGroup()
+									.addComponent(lblOld)
+									.addContainerGap())
+								.addGroup(gl_changePassword.createSequentialGroup()
+									.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_changePassword.createSequentialGroup()
+											.addGap(117)
+											.addComponent(btnCancle)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnSave))
+										.addGroup(gl_changePassword.createSequentialGroup()
+											.addGap(129)
+											.addComponent(ConfNew, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+									.addComponent(label_1))))))
 				.addGroup(gl_changePassword.createSequentialGroup()
-					.addContainerGap(246, Short.MAX_VALUE)
-					.addComponent(btnCancle)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addGap(156)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(Old, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addComponent(New, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+					.addGap(354))
 		);
 		gl_changePassword.setVerticalGroup(
 			gl_changePassword.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_changePassword.createSequentialGroup()
-					.addGap(27)
-					.addGroup(gl_changePassword.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_changePassword.createSequentialGroup()
-							.addComponent(Old, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addContainerGap()
+							.addComponent(lblOld))
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addGap(32)
+							.addComponent(Old, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addGap(38)
 							.addComponent(New, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_changePassword.createSequentialGroup()
-							.addComponent(lblOld)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGap(11)
 							.addComponent(lblNew)))
 					.addGap(18)
 					.addGroup(gl_changePassword.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblconfNew)
-						.addComponent(ConfNew, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(24)
-					.addGroup(gl_changePassword.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSave)
-						.addComponent(btnCancle))
-					.addContainerGap(41, Short.MAX_VALUE))
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addGap(58)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 199, Short.MAX_VALUE))
+						.addGroup(gl_changePassword.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblconfNew)
+							.addGap(18)
+							.addComponent(ConfNew, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(30)
+							.addGroup(gl_changePassword.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnCancle))
+							.addContainerGap())))
 		);
 		changePassword.setLayout(gl_changePassword);
 		
