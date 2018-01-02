@@ -59,7 +59,8 @@ public class Manager extends JFrame{
 	
 	DefaultTableModel model = new DefaultTableModel();
 	DefaultTableModel modelWaiting = new DefaultTableModel();
-	
+    DefaultTableModel tm=new DefaultTableModel();
+
     Border grayBorder = BorderFactory.createLineBorder(Color.gray, 1);
     Connection c = null;
 	java.sql.Statement stmt ;
@@ -75,6 +76,7 @@ public class Manager extends JFrame{
 	private JSpinner spinnerTo_1;
 	private JScrollPane scrollPane_1;
 	private JTable tableWaiting;
+	private JTable table;
 	public Manager() {
 		this.setSize(910,483);
 		this.setResizable(false);
@@ -504,10 +506,10 @@ public class Manager extends JFrame{
 		 	        }
 		 	    	tfNoP.setText(patients.size()+"");	
 		 	    	tfNoV.setText(vs+"");
+		 	    	tm.addRow(new String[]{DoctorName.substring(0,DoctorName.indexOf(" ,")),vs+""});
 		 			c.close();
 		     	 }catch(Exception e1) {
-		     		 JOptionPane.showMessageDialog(null,"there is not any doctors yet");
-		 	    	 }
+		     	 }
 		 	
 		 		
 		 	}
@@ -534,6 +536,8 @@ public class Manager extends JFrame{
 		 JLabel lblNumberOfVisits = new JLabel("Number of visits");
 		 lblNumberOfVisits.setHorizontalAlignment(SwingConstants.CENTER);
 		 lblNumberOfVisits.setFont(new Font("Dialog", Font.BOLD, 18));
+		 
+		 JScrollPane scrollPane_2 = new JScrollPane();
 
 		 
 		 GroupLayout gl_PatientsVisitedDoctors = new GroupLayout(PatientsVisitedDoctors);
@@ -556,9 +560,15 @@ public class Manager extends JFrame{
 		 					.addComponent(spinnerTo_1, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 		 					.addGap(116))
 		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-		 					.addGap(20)
-		 					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 587, GroupLayout.PREFERRED_SIZE)
-		 					.addPreferredGap(ComponentPlacement.UNRELATED)
+		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING, false)
+		 						.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 							.addGap(20)
+		 							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 587, GroupLayout.PREFERRED_SIZE)
+		 							.addPreferredGap(ComponentPlacement.UNRELATED))
+		 						.addGroup(Alignment.TRAILING, gl_PatientsVisitedDoctors.createSequentialGroup()
+		 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		 							.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
+		 							.addGap(107)))
 		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
 		 						.addComponent(label_8)
 		 						.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
@@ -585,10 +595,9 @@ public class Manager extends JFrame{
 		 				.addComponent(spinnerFrom_1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 		 				.addComponent(lblTo)
 		 				.addComponent(spinnerTo_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-		 			.addGap(11)
 		 			.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
 		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
-		 					.addGap(7)
+		 					.addGap(18)
 		 					.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 		 					.addGap(8)
 		 					.addGroup(gl_PatientsVisitedDoctors.createParallelGroup(Alignment.LEADING)
@@ -600,9 +609,18 @@ public class Manager extends JFrame{
 		 						.addComponent(tfNoV, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
 		 					.addPreferredGap(ComponentPlacement.RELATED)
 		 					.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-		 				.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE))
+		 				.addGroup(gl_PatientsVisitedDoctors.createSequentialGroup()
+		 					.addGap(11)
+		 					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 321, GroupLayout.PREFERRED_SIZE)
+		 					.addPreferredGap(ComponentPlacement.UNRELATED)
+		 					.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
 		 			.addContainerGap())
 		 );
+		 table = new JTable(tm);
+		 scrollPane_2.setViewportView(table);
+		 tm.addColumn("Doctor Name");
+		 tm.addColumn("Number of visits");
+		 
 		 PatientsVisitedDoctors.setLayout(gl_PatientsVisitedDoctors);
 		 
 	    scrollPane_1.setViewportView(doctor_patient_info);
@@ -655,14 +673,6 @@ public class Manager extends JFrame{
 			        	int ehours = Integer.valueOf(esplit[0]);
 			        	int eminutes = Integer.valueOf(esplit[1]);
 			        	int diffMinutes=0;
-			        /*	if(eminutes > aminutes) {
-			        		 diffMinutes = (eminutes - aminutes) +60*(ehours-ahours);
-			        		 if(ahours<ehours)
-			        			 diffMinutes-=60;
-			        		 }
-			        	else {
-			        		 diffMinutes = ( eminutes-aminutes ) +60*(ehours-ahours);
-			        		 }*/
 			        	if(eminutes >= aminutes&&ehours>ahours) 
 			        		diffMinutes = (eminutes-aminutes ) +60*(ehours-ahours)-60;
 			        	else if(eminutes >= aminutes&&ehours==ahours) 
