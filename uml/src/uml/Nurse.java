@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -25,6 +26,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.beans.Expression;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -123,7 +125,11 @@ public class Nurse extends JFrame {
 		btnWaitForA.setFont(new Font("Palatino Linotype", Font.PLAIN, 18));
 		btnWaitForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(PID.getText().trim().equals("")||PTemp.getText().trim().equals("")||heartRate.getText().trim().equals("")||!rdbtnNYes.isSelected()&&!rdbtnNNo.isSelected()) {
+				if(!PID.getText().trim().equals("")) {
+					searchPatient(PID.getText(),"");
+				}
+				else if(PID.getText().trim().equals("")){JOptionPane.showMessageDialog(null, "Please enter the ID", "Failure", JOptionPane.ERROR_MESSAGE);}
+				else if(PID.getText().trim().equals("")||PTemp.getText().trim().equals("")||heartRate.getText().trim().equals("")||!rdbtnNYes.isSelected()&&!rdbtnNNo.isSelected()) {
 					JOptionPane.showMessageDialog(null, "Please insert all informations", "Failure", JOptionPane.ERROR_MESSAGE);						
 				}
 				else if(rdbtnNYes.isSelected()&&tfNAllergies.getText().trim().equals("")) {
@@ -171,8 +177,13 @@ public class Nurse extends JFrame {
 				        }
 				        else {
 				        	PID.setBorder(errorBorder);
-				        	JOptionPane.showMessageDialog(null, "patient ID is not correct ..", "Failure", JOptionPane.ERROR_MESSAGE);
-				         }
+				        	 int dialogResult = JOptionPane.showConfirmDialog(null, "patient ID not exist \n Do you like to add new patient ? ", "Confirm",
+				        		        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				        	
+				        	if(dialogResult == JOptionPane.YES_OPTION){
+				        		tabbedPane.setSelectedIndex(1); 				       
+				        		}
+				        }
 			    	 }catch(Exception e1) {
 			         System.err.println( e1.getClass().getName() + ": " + e1.getMessage() );
 	  		         System.exit(0);
@@ -206,25 +217,52 @@ public class Nurse extends JFrame {
 		
 		JLabel label_4 = new JLabel("");
 		label_4.setIcon(new ImageIcon(Nurse.class.getResource("/images/n1.png")));
+		
+		JLabel lblName_1 = new JLabel("Search using patient name");
+		lblName_1.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		RoundJTextField SPName = new RoundJTextField(50);
+		SPName.setFont(new Font("Dialog", Font.PLAIN, 15));
+		SPName.setColumns(10);
+		
+		JButton btnSearchAboutId = new JButton("Search ID or Name");
+		btnSearchAboutId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				searchPatient(PID.getText(),SPName.getText());
+			}
+		});
+		btnSearchAboutId.setFont(new Font("Dialog", Font.PLAIN, 11));
 		GroupLayout gl_patient = new GroupLayout(patient);
 		gl_patient.setHorizontalGroup(
 			gl_patient.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_patient.createSequentialGroup()
+					.addGap(302)
+					.addComponent(rdbtnNYes, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(rdbtnNNo, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+					.addGap(281))
+				.addGroup(gl_patient.createSequentialGroup()
 					.addGap(99)
 					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_patient.createSequentialGroup()
-							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_6, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-								.addComponent(label_7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(41)
-							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(PTemp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(heartRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_patient.createSequentialGroup()
+									.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+										.addComponent(label_6, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+										.addComponent(label_7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(41)
+									.addGroup(gl_patient.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(PTemp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(heartRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(lblName_1)
+								.addGroup(gl_patient.createSequentialGroup()
+									.addGap(42)
+									.addComponent(SPName, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)))
 							.addGap(4)
 							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 286, Short.MAX_VALUE))
-						.addGroup(gl_patient.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_patient.createSequentialGroup()
 							.addComponent(lblHasNewAllergies, GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
 							.addGap(121))
 						.addGroup(gl_patient.createSequentialGroup()
@@ -232,28 +270,28 @@ public class Nurse extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 							.addGap(47)
-							.addComponent(btnWaitForA)
-							.addGap(16)
-							.addComponent(btnClearAll)))
+							.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnSearchAboutId, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addGroup(Alignment.LEADING, gl_patient.createSequentialGroup()
+									.addComponent(btnWaitForA)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnClearAll)))
+							.addGap(83)))
 					.addContainerGap())
-				.addGroup(gl_patient.createSequentialGroup()
-					.addGap(302)
-					.addComponent(rdbtnNYes, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(rdbtnNNo, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-					.addGap(281))
 		);
 		gl_patient.setVerticalGroup(
 			gl_patient.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_patient.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_patient.createSequentialGroup()
+							.addComponent(lblName_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(SPName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+							.addGap(32)
 							.addGroup(gl_patient.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_patient.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_patient.createSequentialGroup()
-									.addGap(76)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_patient.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_patient.createSequentialGroup()
 											.addComponent(PID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -264,22 +302,24 @@ public class Nurse extends JFrame {
 										.addGroup(gl_patient.createSequentialGroup()
 											.addComponent(lblID)
 											.addGap(44)
-											.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblHasNewAllergies)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnNYes)
-								.addComponent(rdbtnNNo))
-							.addGap(14)
-							.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_2)
-								.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnWaitForA)
-								.addComponent(btnClearAll)))
-						.addGroup(gl_patient.createSequentialGroup()
-							.addGap(104)
-							.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
+											.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(gl_patient.createSequentialGroup()
+									.addGap(40)
+									.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))))
+						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblHasNewAllergies)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(rdbtnNYes)
+						.addComponent(rdbtnNNo)
+						.addComponent(btnSearchAboutId, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGap(14)
+					.addGroup(gl_patient.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_2)
+						.addComponent(tfNAllergies, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnWaitForA)
+						.addComponent(btnClearAll))
 					.addContainerGap(60, Short.MAX_VALUE))
 		);
 		patient.setLayout(gl_patient);
@@ -699,7 +739,44 @@ public class Nurse extends JFrame {
 		changePassword.setLayout(gl_changePassword);
 		
 	}
-	
+	 void searchPatient(String pID, String Name) {
+		try {
+			boolean notExist=false;
+			Class.forName("org.sqlite.JDBC");
+	        c = DriverManager.getConnection("jdbc:sqlite:DB.db");
+	        stmt = c.createStatement();
+	        ResultSet rs;
+	        if(!pID.equals("")) {
+	        	rs=stmt.executeQuery("SELECT ID,name FROM Patient where ID='"+pID+"';");
+	            if (rs.next()) 	
+		        	JOptionPane.showMessageDialog(null, "patientt is exist \n Name : "+rs.getString("name")+"\n ID: "+rs.getString("ID"));
+	            else notExist=true;
+	            }
+	        else {
+	        	rs=stmt.executeQuery("SELECT ID,name FROM Patient where name LIKE UPPER('%"+Name+"%');");
+	        	String names="";
+	        	if(rs.next()) {
+	        		names+=rs.getString("ID")+" ";
+	        	while(rs.next()){
+	        		names+=rs.getString("ID")+" ";
+	        	}
+	        	String[] namesList=names.split(" ");
+	        	 Object id=JOptionPane.showInputDialog(null, "Pick a printer", "patient's name", JOptionPane.QUESTION_MESSAGE,
+     			        null, namesList, "Titan");
+	        	 PID.setText(id.toString());}
+	        	else notExist=true;
+	        }
+	  
+	        if(notExist) {
+	        	PID.setBorder(errorBorder);
+	        	 int dialogResult = JOptionPane.showConfirmDialog(null, "patient not exist \n Do you like to add new patient ? ", "Confirm",
+	        		        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
+	        	if(dialogResult == JOptionPane.YES_OPTION)
+	        		tabbedPane.setSelectedIndex(1); 				       	
+			}
+	        c.close();
+	      }catch(Exception ee) {}
+	}
 	boolean passwordsCheck(){
 		String pass1=New.getText();
 		String pass2=ConfNew.getText();
